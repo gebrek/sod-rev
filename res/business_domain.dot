@@ -1,0 +1,41 @@
+digraph BznsDmn {
+	label="Business Domain Model"
+	rankdir=LR;
+	newrank=true;
+	node [fontsize= 20 shape=box]
+	// Stakeholders
+	University;
+	DigitalBank;
+	// Users
+	Cafeteria;
+	Student;
+
+	edge [fontsize=14]
+	University->Cafeteria	[label="Notifies"];
+
+	Student->University	[label="Pays"];
+	Student->DigitalBank	[label="Pays"];
+	Student->University	[label="Preorders"];
+	DigitalBank->Student	[label="Charges"];
+
+	// Cafeteria->Student		[label="Serves"];
+	Cafeteria->University 	[label="Updates"];
+
+	// Proxy actions
+	node [fontsize=14 shape=plaintext height=0 margin=0]
+	Analyzes;
+	Records;
+	Serves;
+	edge [dir=both arrowtail=none arrowhead=none]
+	University->Records;
+	University->Analyzes;
+	Cafeteria->Serves;
+	edge [arrowhead=normal arrowtail=none]
+	Records->University;
+	Analyzes->University;
+	Serves->Student;
+
+	{rank=min Analyzes, Records}
+	{rank=same University, DigitalBank}
+	{rank=same Student, Cafeteria, Serves}
+}

@@ -1,0 +1,121 @@
+#+TITLE: SOD Assignment 1: Revisited
+#+AUTHOR: Jacob Sonnenberg
+* Introduction
+** Purpose
+   This document presents a design aimed at reducing waste, caused by
+   a university cafeteria over-producing food, by using a pre-ordering
+   service along with historical analysis to provide accurate
+   short-term demand estimates as well as insight into overall trends.
+** Assumptions
+** Terminology
+* Business Domain
+** Model
+   #+BEGIN_SRC dot :file res/business_domain.png :tangle res/business_domain.dot
+     digraph BznsDmn {
+	     label="Business Domain Model"
+	     rankdir=LR;
+	     newrank=true;
+	     node [fontsize= 20 shape=box]
+	     // Stakeholders
+	     University;
+	     DigitalBank;
+	     // Users
+	     Cafeteria;
+	     Student;
+
+	     edge [fontsize=14]
+	     University->Cafeteria	[label="Notifies"];
+
+	     Student->University	[label="Pays"];
+	     Student->DigitalBank	[label="Pays"];
+	     Student->University	[label="Preorders"];
+	     DigitalBank->Student	[label="Charges"];
+
+	     // Cafeteria->Student		[label="Serves"];
+	     Cafeteria->University 	[label="Updates"];
+
+	     // Proxy actions
+	     node [fontsize=14 shape=plaintext height=0 margin=0]
+	     Analyzes;
+	     Records;
+	     Serves;
+	     edge [dir=both arrowtail=none arrowhead=none]
+	     University->Records;
+	     University->Analyzes;
+	     Cafeteria->Serves;
+	     edge [arrowhead=normal arrowtail=none]
+	     Records->University;
+	     Analyzes->University;
+	     Serves->Student;
+
+	     {rank=min Analyzes, Records}
+	     {rank=same University, DigitalBank}
+	     {rank=same Student, Cafeteria, Serves}
+     }
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:res/business_domain.png]]
+
+** Participants
+   
+*** Stakeholders
+**** *University ::*
+     The university will provide a preordering service for students
+     and a notification service for the Cafeteria, informing it of
+     students' orders.
+
+     Additionally the University will be recording transactions made
+     through the preorder service (and those made without it) so that
+     the data may later be analyzed.
+**** *Digital Payment Processor ::*
+     A Digital Payment Processing company provides exactly such a
+     service, processing pre-order payments made through an online
+     service.
+*** Users
+**** *Cafeteria ::*
+     The Cafeteria serves food to Students, receiving orders directly
+     from a student or indirectly via the University's preorder
+     service. The Cafeteria produces the supply.
+**** *Students ::*
+     A Student of the University is a customer of the
+     Cafeteria. Students generate demand.
+** Potential Services
+*** Preorder Service
+    The service by which Students can communicate their demand ahead
+    of time.
+**** *Authorization Service ::*
+     Provided by the University for the Students, Cafeteria, and
+     University Administrators. Serves as a security gateway for
+     accessing software components of the system.
+**** *Online Ordering Service ::*
+     Provided by the University for the Students. An internet gateway
+     Students use to interact with the system.
+**** *Notification Service ::*
+     Provided by the University to the Cafeteria. Informs the
+     Cafeteria of what orders have been placed, the contents of the
+     order and the desired pickup time.
+**** *Digital Payment Service ::*
+     Provided by the Digital Bank stakeholder, if the Student pays at
+     the time of preordering, they are transferred to the Digital
+     Bank's service in order to complete the payment.
+**** *Service Service ::*
+     Non-software service provided the Cafeteria, performing food
+     preparation and acting as the point of sale.
+*** Prediction Service
+    The service by which a prediction of demand in the short and long
+    term is made.
+**** *Analysis Service ::*
+     Owned by the University
+**** *Record Service ::*
+     Owned by the University. Records orders made through the preorder
+     service as well as local sales made by the cafeteria, either
+     automatically or manually updated.
+** Usage Scenarios
+*** Use Case 1
+*** Use Case 2
+* Functional Requirements
+* Quality Requirements
+* Business Services
+* Design Space
+* Sustainability Strategies
