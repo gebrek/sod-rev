@@ -32,7 +32,7 @@
 	     DigitalBank->Student	[label="Charges"];
 
 	     // Cafeteria->Student		[label="Serves"];
-	     Cafeteria->University 	[label="Updates"];
+	     Cafeteria->University 	[label="Reports"];
 
 	     // Proxy actions
 	     node [fontsize=14 shape=plaintext height=0 margin=0]
@@ -75,18 +75,19 @@
 *** Users
 **** *Cafeteria ::*
      The Cafeteria serves food to Students, receiving orders directly
-     from a student or indirectly via the University's preorder
-     service. The Cafeteria produces the supply.
+     from a student or indirectly via the University's
+     preorder/notification service. The Cafeteria will also report
+     sales and unsold product. The Cafeteria produces the supply.
 **** *Students ::*
      A Student of the University is a customer of the
-     Cafeteria. Students generate demand.
+     Cafeteria. Students are the entities which generate demand.
 ** Potential Services
 *** Preorder Service
     The service by which Students can communicate their demand ahead
     of time.
 **** *Authorization Service ::*
      Provided by the University for the Students, Cafeteria, and
-     University Administrators. Serves as a security gateway for
+     University Administrators. Serves as a secure gateway for
      accessing software components of the system.
 **** *Online Ordering Service ::*
      Provided by the University for the Students. An internet gateway
@@ -99,7 +100,7 @@
      Provided by the Digital Bank stakeholder, if the Student pays at
      the time of preordering, they are transferred to the Digital
      Bank's service in order to complete the payment.
-**** *Service Service ::*
+**** *Food Service ::*
      Non-software service provided the Cafeteria, performing food
      preparation and acting as the point of sale.
 *** Prediction Service
