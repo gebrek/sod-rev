@@ -8,6 +8,32 @@
    short-term demand estimates as well as insight into overall trends.
 ** Assumptions
 ** Terminology
+   #+BEGIN_SRC dot :file res/qoc_example.png :tangle res/qoc_example.dot
+     graph G {
+	     label="Template for QOC Diagram"
+	     rankdir=LR;
+
+	     Question;
+	     Option1 [label="Chosen\nOption" color=green];
+	     Option2 [label="Rejected\nOption" color=red];
+	     Criterion1;
+	     Criterion2;
+
+	     {rank=min Question}
+	     {rank=same Option1, Option2}
+	     {rank=same Criterion1, Criterion2}
+
+	     Question--{Option1, Option2};
+	     Option1--Criterion1 [label="Positive Assess." color=green];
+	     Option1--Criterion2 [color=green];
+	     Option2--Criterion1 [color=red];
+	     Option2--Criterion2 [color=red label="Negative Assess."];
+     }
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:res/qoc_example.png]]
+
 * Business Domain
 ** Model
    #+BEGIN_SRC dot :file res/business_domain.png :tangle res/business_domain.dot
@@ -61,7 +87,6 @@
    [[file:res/business_domain.png]]
 
 ** Participants
-   
 *** Stakeholders
 **** *University*
 
@@ -93,7 +118,15 @@
      Cafeteria. Students are the entities which generate demand.
 
 ** Conceptual Services
+   This section contains a list of every service that could be related
+   to the operation of the proposed system. In it are both software
+   and non-software services, we will describe the details of some of
+   the former and assume the latter will be provided by other
+   entities.
 *** Preorder Service                                                 :hybrid:
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :END:
     The service by which Students can communicate their demand ahead
     of time.
 **** *Authorization Service*                                        :utility:
@@ -143,6 +176,9 @@
       Retrieval of a Student's order at pickup.
 
 *** Prediction Service                                               :hybrid:
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :END:
     The service by which a prediction of demand in the short and long
     term is made.
 **** *Analysis Service*                                              :entity:
@@ -156,12 +192,27 @@
      service or collects data regarding the other sales made at the
      Cafeteria.
 
-***** *Reporting Service*                                           :utility:
+***** Reporting Service                                             :utility:
 
       Provided for the Cafeteria by the University. The Cafeteria
       reports sales made, preorders fulfilled, and excess production.
 
-*** New Menu Service                                                   :task:
+**** *Data Storage Service*                                            :task:
+
+     The data the University collects on orders needs to be stored
+     somewhere, whether this is done on an owned asset or if though a
+     service provided by another stakeholder.
+
+**** *Data Viewing Service*                                          :entity:
+
+     The data which has been stored must be accessible for the
+     University to perform analysis.
+
+*** Menu Changing Service                                              :task:
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :END:
+
     The Cafeteria has to be able to change the menu from week to week,
     or over whatever time period the menu changes.
 * Functional Requirements
@@ -171,56 +222,213 @@
   derived from the services outlined in the [[*Conceptual Services][Conceptual Services]]
   section. The format is:
 
-  + ID :: /Name/ --- Short Description
+  + *ID : /Name/*
+
+    Short Description
 
   For our purposes we will select functional requirements most
   pertinent to the problem of accurately predicting demand. To this
   end we will be concerned with FR-01 (/Placing Orders/), FR-04
   (/Record Transactions/), and FR-08 (/Trend Analysis/). These three
   functions form a skeleton of the proposed service: when a Student
-  places an order, that data is collected and saved for future
-  analysis. This means we will neglecting the Digital Bank
-  stakeholder, and perhaps only touching the actions of the Cafeteria.
+  places an order, that data is collected by the University and saved
+  for future analysis. This means we will neglecting the Digital Bank
+  stakeholder, and perhaps only touching the actions of the
+  Cafeteria. The other functionalities listed are necessary but
+  peripheral to the core intent of this proposal.
 
-  --------
+#+latex: \newpage
 ** /Requirements/
    :PROPERTIES:
    :UNNUMBERED: t
    :END:
-*** <<<FR-01>>>
-    /Placing Orders/ --- A Student must be able to place an order
-    without being physically present at the Cafeteria
-*** FR-02
-    /Schedule Pickup/ --- As an order is placed, the Student should
-    also be able to specify a time they wish to obtain their order.
-*** FR-03
-    /Electronic Payment/ --- A Student should be able to optionally
-    pay at the time of placing their order.
-*** <<<FR-04>>>
-    /Record Transactions/ --- Each transaction made must be recorded.
-*** FR-05
-    /Send Transactions Records/ --- If a transaction is not made
-    through the preorder system, the Cafeteria must still report it to
-    the University.
-*** FR-06
-    /Send Cafeteria Orders/ --- There must be a system in place so
-    that the Cafeteria receives preorders as soon as possible.
-*** FR-07
-    /Authorization/ --- The system must be properly secured so that
-    users of the system may register, log in, and perform whatever
-    actions that particular user is permitted and no others.
-*** <<<FR-08>>>
-    /Trend Analysis/ --- The system must have some way of
-    extrapolating demand based on the number of preorders, correlated
-    with historical data.
+*** <<<FR-01>>> : /Placing Orders/
+    A Student must be able to place an order without being physically
+    present at the Cafeteria
+*** <<<FR-02>>> : /Schedule Pickup/
+    As an order is placed, the Student should also be able to specify
+    a time they wish to obtain their order.
+*** <<<FR-03>>> : /Electronic Payment/
+    A Student should be able to optionally pay at the time of placing
+    their order.
+*** <<<FR-04>>> : /Record Transactions/
+    Each transaction made must be recorded.
+*** <<<FR-05>>> : /Send Transactions Records/
+    If a transaction is not made through the preorder system, the
+    Cafeteria must still report it to the University.
+*** <<<FR-06>>> : /Send Cafeteria Orders/
+    There must be a system in place so that the Cafeteria receives
+    preorders as soon as possible.
+*** <<<FR-07>>> : /Authorization/
+    The system must be properly secured so that users of the system
+    may register, log in, and perform whatever actions that particular
+    user is permitted and no others.
+*** <<<FR-08>>> : /Trend Analysis/
+    The system must have some way of extrapolating demand based on the
+    number of preorders, correlated with historical data.
 
     -------
 
     All this and more...
-
+#+latex: \newpage
 * Quality Requirements
-  In this section we describe the
-** QR-01
+
+  This section will discuss the most important qualities in
+  considering the problem of more accurately predicting and meeting
+  demand.
+
+** <<<QR-01>>> : /Security/
+   + Definition :: Service Security is the ability of the service to provide
+** <<<QR-02>>> : /Availability/
+   + Definition :: 
+** <<<QR-03>>> : /Reliability/
+   + Definition :: 
+   
 * Business Services
+** <<<BS-02>>> : /Statistical Analysis/
+*** Service Behavior
+    #+BEGIN_SRC dot :file res/bs_02_act.png :tangle res/bs_02_act.dot
+      digraph BS2 {
+	      label="BS-02 (Statistical Analysis) Activity Diagram";
+	      newrank=true;
+	      splines=polyline;
+	      // Terminals
+	      Start [shape=point height=0.2 width=0.2];
+	      End [shape=point height=0.2 width=0.2 peripheries=2];
+	      // Choices
+	      node [shape=diamond fixedsize=true height=0.5 width=1.5 color=orange style=filled]
+	      choose_request [label="What type of request?"];
+	      choose_valid_user [label="Is this user valid?"];
+
+	      {rank=same choose_request, choose_valid_user}
+	      // Remaining Nodes & Clusters
+	      node [shape=box color=white style=filled]
+	      subgraph cluster0 {
+		      label="Authentication Service"
+		      color=lightgrey
+		      style=filled
+		      AuthUser [label="Authenticate User"];
+		      choose_valid_user;
+		      AuthUser->choose_valid_user;
+	      }
+	      Start->AuthUser;
+	      choose_valid_user->StructureResponse_join [label="No"];
+	      choose_valid_user->choose_request [label="Yes"];
+	      choose_request->Retrieve [label="View\nAnalysis"];
+	      choose_request->StoreData [label="Put\nData"];
+	      subgraph cluster1 {
+		      label="Statistics Service"
+		      color=lightgrey
+		      style=filled
+		      Retrieve [label="Retrieve Relevant\nData"]
+		      Analyze [label="Analyze Data"];
+		      Retrieve->Analyze;
+	      }
+	      Analyze->ViewAnalysis;
+	      subgraph cluster2 {
+		      label="Storage Service"
+		      color=lightgrey
+		      style=filled
+		      StoreData;
+	      }
+	      {rank=same StoreData, Retrieve}
+	      // {rank=same Analyze, ViewAnalysis}
+	      StoreData->StructureResponse_join;
+	      subgraph cluster3 {
+		      label="View Service"
+		      color=lightgrey
+		      style=filled
+		      ViewAnalysis;
+	      }
+	      ViewAnalysis->StructureResponse_join;
+	      subgraph cluster4 {
+		      label="Response Service"
+		      color=lightgrey
+		      style=filled
+		      StructureResponse;
+		      SendResponse;
+		      {rank=same StructureResponse, SendResponse}
+		      StructureResponse->SendResponse;
+	      }
+
+	      StructureResponse_join [label="" height=0 width=1 color=black]
+	      StructureResponse_join->StructureResponse;
+
+	      SendResponse->End;
+      }
+    #+END_SRC
+
+    #+attr_latex: :height 14cm
+    #+RESULTS:
+    [[file:res/bs_02_act.png]]
+*** Service Decomposition
+    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
+      digraph BS2 {
+              rankdir=LR;
+	      splines=line;
+	      AnalysisService;
+	      AuthenticationService;
+	      StatisticService;
+	      ViewService;
+	      StorageService;
+	      ResponseService;
+
+	      edge [style=dashed label="<<include>>"]
+	      AnalysisService->{AuthenticationService,StatisticService,
+	                        ViewService,StorageService,ResponseService}
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/bs_02_dcmp.png]]
+
 * Design Space
+** AK-SPAM
+*** Concern
+    + Con#1 :: How do we promote the use of digital services?
+*** Criteria
+    + Cr#1 :: Security
+    + Cr#2 :: Availability
+    + Cr#3 :: Reliability
+*** Options
+**** Trusted Third Party Payment
+     + ID :: Con#1-Opt#1
+     + Description :: Pre-order payment should be done through a
+                      trusted and known third party with experience so
+                      the process is secure.
+     + Status :: Decided
+     + Relationship(s) :: none
+     + Evaluation :: ---
+       + Cr#1 --- This option is secure, as long as the
+         third party maintains integrity.
+       + Cr#2 --- This option's availability depends again on the
+         third party, it is partially out of our control, depending on
+         the service model of the third party.
+       + Cr#3 --- 
+     + Rationale :: Given that the third-party processing company is
+                    of repute, this option should have the best
+                    security, availability, and usability. The same
+                    functionality is achieved as implementing it
+                    in-house but with a slight recurring cost.
+**** Payment on Pickup
+     + ID :: Con#1-Opt#2
+     + Description :: There is no online payment system, the customer
+                      pays for items upon receipt.
+     + Status :: Rejected
+     + Relationship(s) :: none
+     + Evaluation :: ---
+       + Cr#1 --- This option is as secure as the
+         Cafeteria itself. No additional attack vectors
+         are added to the existing infrastructure.
+       + Cr#2 --- This option does not improve on availability, there
+         is no 
+       + Cr#3 --- 
+     + Rationale :: 
+**** In-house Payment System
+     + ID :: Con#1-Opt#3
+     + Description ::
+     + Status ::
+     + Relationship(s) ::
+     + Evaluation ::
+     + Rationale :: 
 * Sustainability Strategies
