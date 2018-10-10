@@ -275,22 +275,29 @@
 
   This section will discuss the most important qualities in
   considering the problem of more accurately predicting and meeting
-  demand.
+  demand. For clarity we will use standard[fn:1] definitions.
 
 ** <<<QR-01>>> : /Security/
-   + Definition :: A Service is /secure/ when the users of the service
-                   can access only those things they are intended to
-                   access, and the system is not susceptible to
-                   malicious external actors.
+   + Definition :: degree to which a product or system protects
+                   information and data so that persons or other
+                   products or systems have the degree of data access
+                   appropriate to their types and levels of
+                   authorization
+
 ** <<<QR-02>>> : /Availability/
-   + Definition :: A Service is considered /available/ if there is
-                   little or no time when it cannot be accessed, under
-                   the intended conditions.
+   + Definition :: degree to which a system, product or component is
+                   operational and accessible when required for use
+
 ** <<<QR-03>>> : /Reliability/
-   + Definition :: A Service is /reliable/ when it routinely produces
-                   the expected and desired result, within some margin
-                   of tolerance.
+   + Definition :: degree to which a system, product or component
+                   performs specified functions under specified
+                   conditions for a specified period of time
+
 ** <<<QR-04>>> : /Usability/
+   + Definition :: degree to which a product or system can be used by
+                   specified users to achieve specified goals with
+                   effectiveness, efficiency and satisfaction in a
+                   specified context of use
 
 #+latex: \newpage
 * Business Services
@@ -454,3 +461,8 @@
      + Evaluation ::
      + Rationale :: 
 * Sustainability Strategies
+
+* Footnotes
+
+[fn:1] ISO/IEC 25010:2011
+
