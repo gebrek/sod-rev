@@ -227,12 +227,12 @@
     Short Description
 
   For our purposes we will select functional requirements most
-  pertinent to the problem of accurately predicting demand. To this
-  end we will be concerned with FR-01 (/Placing Orders/), FR-04
-  (/Record Transactions/), and FR-08 (/Trend Analysis/). These three
-  functions form a skeleton of the proposed service: when a Student
-  places an order, that data is collected by the University and saved
-  for future analysis. This means we will neglecting the Digital Bank
+  relevant to the problem of accurately predicting demand. To this end
+  we will be concerned with FR-01 (/Placing Orders/), FR-04 (/Record
+  Transactions/), and FR-08 (/Trend Analysis/). These three functions
+  form a skeleton of the proposed service: when a Student places an
+  order, that data is collected by the University and saved for future
+  analysis. This means we will neglecting the Digital Bank
   stakeholder, and perhaps only touching the actions of the
   Cafeteria. The other functionalities listed are necessary but
   peripheral to the core intent of this proposal.
@@ -242,7 +242,7 @@
    :PROPERTIES:
    :UNNUMBERED: t
    :END:
-*** <<<FR-01>>> : /Placing Orders/
+*** * <<<FR-01>>> : /Placing Orders/
     A Student must be able to place an order without being physically
     present at the Cafeteria
 *** <<<FR-02>>> : /Schedule Pickup/
@@ -251,7 +251,7 @@
 *** <<<FR-03>>> : /Electronic Payment/
     A Student should be able to optionally pay at the time of placing
     their order.
-*** <<<FR-04>>> : /Record Transactions/
+*** * <<<FR-04>>> : /Record Transactions/
     Each transaction made must be recorded.
 *** <<<FR-05>>> : /Send Transactions Records/
     If a transaction is not made through the preorder system, the
@@ -263,7 +263,7 @@
     The system must be properly secured so that users of the system
     may register, log in, and perform whatever actions that particular
     user is permitted and no others.
-*** <<<FR-08>>> : /Trend Analysis/
+*** * <<<FR-08>>> : /Trend Analysis/
     The system must have some way of extrapolating demand based on the
     number of preorders, correlated with historical data.
 
@@ -278,14 +278,50 @@
   demand.
 
 ** <<<QR-01>>> : /Security/
-   + Definition :: Service Security is the ability of the service to provide
+   + Definition :: A Service is /secure/ when the users of the service
+                   can access only those things they are intended to
+                   access, and the system is not susceptible to
+                   malicious external actors.
 ** <<<QR-02>>> : /Availability/
-   + Definition :: 
+   + Definition :: A Service is considered /available/ if there is
+                   little or no time when it cannot be accessed, under
+                   the intended conditions.
 ** <<<QR-03>>> : /Reliability/
-   + Definition :: 
-   
+   + Definition :: A Service is /reliable/ when it routinely produces
+                   the expected and desired result, within some margin
+                   of tolerance.
+** <<<QR-04>>> : /Usability/
+
+#+latex: \newpage
 * Business Services
+** <<<BS-01>>> : /Transaction Monitoring/
+*** Service Behavior
+*** Service Decomposition
+*** Context Model
 ** <<<BS-02>>> : /Statistical Analysis/
+
+*** Service Decomposition
+    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
+      digraph BS2 {
+              label="BS-02 (Statistical Analysis) Service Decomposition";
+              rankdir=LR;
+	      splines=line;
+	      AnalysisService;
+	      AuthenticationService;
+	      StatisticService;
+	      ViewService;
+	      StorageService;
+	      ResponseService;
+
+	      edge [style=dashed label="<<include>>"]
+	      AnalysisService->{AuthenticationService,StatisticService,
+	                        ViewService,StorageService,ResponseService}
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/bs_02_dcmp.png]]
+#+latex: \newpage
 *** Service Behavior
     #+BEGIN_SRC dot :file res/bs_02_act.png :tangle res/bs_02_act.dot
       digraph BS2 {
@@ -314,7 +350,7 @@
 	      Start->AuthUser;
 	      choose_valid_user->StructureResponse_join [label="No"];
 	      choose_valid_user->choose_request [label="Yes"];
-	      choose_request->Retrieve [label="View\nAnalysis"];
+	      choose_request->Retrieve [label="View\nStatistics"];
 	      choose_request->StoreData [label="Put\nData"];
 	      subgraph cluster1 {
 		      label="Statistics Service"
@@ -358,32 +394,18 @@
       }
     #+END_SRC
 
-    #+attr_latex: :height 14cm
+    #+attr_latex: :height 16.3cm
     #+RESULTS:
     [[file:res/bs_02_act.png]]
-*** Service Decomposition
-    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
-      digraph BS2 {
-              rankdir=LR;
-	      splines=line;
-	      AnalysisService;
-	      AuthenticationService;
-	      StatisticService;
-	      ViewService;
-	      StorageService;
-	      ResponseService;
+*** Context Model
+** <<<BS-03>>> : /Preordering/
 
-	      edge [style=dashed label="<<include>>"]
-	      AnalysisService->{AuthenticationService,StatisticService,
-	                        ViewService,StorageService,ResponseService}
-      }
-    #+END_SRC
-
-    #+RESULTS:
-    [[file:res/bs_02_dcmp.png]]
-
+#+latex: \newpage
 * Design Space
 ** AK-SPAM
+   :PROPERTIES:
+   :UNNUMBERED: t
+   :END:
 *** Concern
     + Con#1 :: How do we promote the use of digital services?
 *** Criteria
