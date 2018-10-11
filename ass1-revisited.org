@@ -8,6 +8,20 @@
    short-term demand estimates as well as insight into overall trends.
 ** Assumptions
 ** Terminology
+   #+BEGIN_SRC dot :file res/decomp_example.png :tangle res/decomp_example.dot
+   digraph G {
+             label="Template for Service Decomposition";
+	     Service;
+	     Component1, Component2;
+	     Service->Component1 [label="<<include>>"];
+	     Service->Component2 [style=dashed dir=back arrowtail=empty label="<<extend>>"]
+   }
+   #+END_SRC
+
+   #+attr_latex: :width 7cm
+   #+RESULTS:
+   [[file:res/decomp_example.png]]
+
    #+BEGIN_SRC dot :file res/qoc_example.png :tangle res/qoc_example.dot
      graph G {
 	     label="Template for QOC Diagram"
@@ -35,6 +49,79 @@
    [[file:res/qoc_example.png]]
 
 * Business Domain
+** Usage Scenarios
+*** Student Case
+    Frank and Giorgia are sitting in class taking notes on their
+    laptops. They want to eat at the Cafeteria before their next
+    lecture. The University Cafeteria has a wide variety of food
+    available, and Frank is hungry so he looks up the Cafeteria's menu
+    and decides to get fish and chips with a side of salad. Giorgia
+    does the same, but also places an order and schedules to pick it
+    up in thirty minutes.
+    
+    Frank and Giorgia leave class and go the Cafeteria. When they
+    arrive Frank looks around for his desired meal, but does not see
+    it. Another batch of fish and chips is being made and he'll have
+    to wait or choose something else. 
+
+    Giorgia instead goes to a kiosk labeled "Pick-up" and tells the
+    clerk her name and order number. The clerk fetches her meal, and
+    she goes to pay the cashier.
+*** Cafeteria Case
+    At the beginning of a new day cooks in the Cafeteria begin
+    preparing that day's meals. For the most part they stick to a
+    routine menu with items appearing on and disappearing from the
+    menu at regular intervals for various reasons. Whether because of
+    shortage or to keep the menu fresh. This is the core menu.
+
+    They also prepare some meals that have already been ordered for
+    the morning. Which are placed in temporary storage, organized for
+    quick retrieval and preserved to keep the hot and cold items
+    fresh. Students come and go picking up their orders, or taking
+    time choosing a meal. Some 
+
+    The kitchen notices that a particular item is selling less than
+    usual and by the end of the day there looks to be an excess amount
+    of waste. The kitchen signals to the computer system that it
+    should promote this item in some way. Either through a banner in
+    the app, placing the item nearer to the top of the menu, putting
+    on a token sale of the item, or whatever other promotional
+    method.
+
+    At the end of the month the kitchen notices that some items were
+    unpopular based off of the sales statistics. The kitchen then
+    decides that they will take those items off the menu, or make less
+    for the next month.
+** Participants
+*** Stakeholders
+**** *University*
+
+     The university will provide a preordering service for students
+     and a notification service for the Cafeteria, informing it of
+     students' orders.
+
+     Additionally the University will be recording transactions made
+     through the preorder service (and those made without it) so that
+     the data may later be analyzed.
+
+**** *Digital Payment Processor*
+
+     A Digital Payment Processing company provides exactly such a
+     service, processing pre-order payments made through an online
+     service.
+
+*** Users
+**** *Cafeteria*
+
+     The Cafeteria serves food to Students, receiving orders directly
+     from a student or indirectly via the University's
+     preorder/notification service. The Cafeteria will also report
+     sales and unsold product. The Cafeteria produces the supply.
+
+**** *Students*
+
+     A Student of the University is a customer of the
+     Cafeteria. Students are the entities which generate demand.
 ** Model
    #+BEGIN_SRC dot :file res/business_domain.png :tangle res/business_domain.dot
      digraph BznsDmn {
@@ -83,39 +170,9 @@
      }
    #+END_SRC
 
+   #+attr_latex: :height 8cm
    #+RESULTS:
    [[file:res/business_domain.png]]
-
-** Participants
-*** Stakeholders
-**** *University*
-
-     The university will provide a preordering service for students
-     and a notification service for the Cafeteria, informing it of
-     students' orders.
-
-     Additionally the University will be recording transactions made
-     through the preorder service (and those made without it) so that
-     the data may later be analyzed.
-
-**** *Digital Payment Processor*
-
-     A Digital Payment Processing company provides exactly such a
-     service, processing pre-order payments made through an online
-     service.
-
-*** Users
-**** *Cafeteria*
-
-     The Cafeteria serves food to Students, receiving orders directly
-     from a student or indirectly via the University's
-     preorder/notification service. The Cafeteria will also report
-     sales and unsold product. The Cafeteria produces the supply.
-
-**** *Students*
-
-     A Student of the University is a customer of the
-     Cafeteria. Students are the entities which generate demand.
 
 ** Conceptual Services
    This section contains a list of every service that could be related
@@ -143,7 +200,7 @@
      Provided by the University for the Students. An internet gateway
      Students use to interact with the system.
 
-***** Menu Viewing Service                                           :entity:
+***** (Menu) Viewing Service                                         :entity:
 ***** Shopping Cart Service                                          :entity:
 ***** Scheduling Service                                               :task:
 **** *Notification Service*                                            :task:
@@ -203,7 +260,7 @@
      somewhere, whether this is done on an owned asset or if though a
      service provided by another stakeholder.
 
-**** *Data Viewing Service*                                          :entity:
+**** *(Data) Viewing Service*                                        :entity:
 
      The data which has been stored must be accessible for the
      University to perform analysis.
@@ -215,6 +272,8 @@
 
     The Cafeteria has to be able to change the menu from week to week,
     or over whatever time period the menu changes.
+
+*** View Service                                                     :entity:
 * Functional Requirements
 
   In this section we list some of the functional requirements that our
@@ -301,38 +360,35 @@
 
 #+latex: \newpage
 * Business Services
-** <<<BS-01>>> : /Transaction Monitoring/
-*** Service Behavior
+** <<<BS-01>>> : /Transaction Recording/
 *** Service Decomposition
-*** Context Model
-** <<<BS-02>>> : /Statistical Analysis/
-
-*** Service Decomposition
-    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
-      digraph BS2 {
-              label="BS-02 (Statistical Analysis) Service Decomposition";
-              rankdir=LR;
-	      splines=line;
-	      AnalysisService;
+    #+BEGIN_SRC dot :file res/bs_01_dcmp.png :tangle res/bs_01_dcmp.dot
+      digraph BS1 {
+	      label="BS-01 (Transaction Recording) Service Decomposition";
+	      rankdir=LR;
 	      AuthenticationService;
-	      StatisticService;
+	      RecordTransactions;
+	      MonitorService;
 	      ViewService;
 	      StorageService;
-	      ResponseService;
 
-	      edge [style=dashed label="<<include>>"]
-	      AnalysisService->{AuthenticationService,StatisticService,
-	                        ViewService,StorageService,ResponseService}
+	      RecordTransactions->{AuthenticationService,MonitorService, ViewService, StorageService};
+	      edge [style=dashed dir=back arrowtail=empty];
+	      RecordTransactions->{PreorderService};
+
       }
     #+END_SRC
 
     #+RESULTS:
-    [[file:res/bs_02_dcmp.png]]
-#+latex: \newpage
+    [[file:res/bs_01_dcmp.png]]
 *** Service Behavior
-    #+BEGIN_SRC dot :file res/bs_02_act.png :tangle res/bs_02_act.dot
-      digraph BS2 {
-	      label="BS-02 (Statistical Analysis) Activity Diagram";
+    In this first activity diagram we will be more explicit about each
+    service involved, but we will abstract some (Authentication and
+    Response) away to simplify the other activity diagrams.
+
+    #+BEGIN_SRC dot :file res/bs_01_act.png :tangle res/bs_01_act.dot
+      digraph BS1 {
+	      label="BS-01 (Statistical Analysis) Activity Diagram";
 	      newrank=true;
 	      splines=polyline;
 	      // Terminals
@@ -357,6 +413,100 @@
 	      Start->AuthUser;
 	      choose_valid_user->StructureResponse_join [label="No"];
 	      choose_valid_user->choose_request [label="Yes"];
+	      choose_request->ViewSales [label="View\nStatistics"];
+	      choose_request->StoreData [label="Put\nData"];
+	      subgraph cluster5 {
+		      label="Preorder Service"
+		      color=lightgrey
+		      style=filled
+		      OrderNotifications;
+	      }
+	      OrderNotifications->MonitorSales;
+	      subgraph cluster1 {
+		      label="Monitor Service"
+		      color=lightgrey
+		      style=filled
+		      MonitorSales;
+	      }
+	      MonitorSales->StoreData;
+	      subgraph cluster2 {
+		      label="Storage Service"
+		      color=lightgrey
+		      style=filled
+		      StoreData;
+	      }
+	      // {rank=same Analyze, ViewAnalysis}
+	      StoreData->StructureResponse_join;
+	      subgraph cluster3 {
+		      label="View Service"
+		      color=lightgrey
+		      style=filled
+		      ViewSales;
+	      }
+	      ViewSales->StructureResponse_join;
+	      subgraph cluster4 {
+		      label="Response Service"
+		      color=lightgrey
+		      style=filled
+		      StructureResponse;
+		      SendResponse;
+		      {rank=same StructureResponse, SendResponse}
+		      StructureResponse->SendResponse;
+	      }
+
+	      StructureResponse_join [label="" height=0 width=1 color=black]
+	      StructureResponse_join->StructureResponse;
+
+	      SendResponse->End;
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/bs_01_act.png]]
+
+*** Context Model
+** <<<BS-02>>> : /Statistical Analysis/
+*** Service Decomposition
+    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
+      digraph BS2 {
+	      label="BS-02 (Statistical Analysis) Service Decomposition";
+	      rankdir=LR;
+	      AnalysisService;
+	      AuthenticationService;
+	      StatisticService;
+	      ViewService;
+	      StorageService;
+	      ResponseService;
+
+	      // edge [style=dashed dir=back arrowtail=empty]
+	      AnalysisService->{AuthenticationService,StatisticService,
+				ViewService,StorageService,ResponseService}
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/bs_02_dcmp.png]]
+#+latex: \newpage
+*** Service Behavior
+    #+BEGIN_SRC dot :file res/bs_02_act.png :tangle res/bs_02_act.dot
+      digraph BS2 {
+	      label="BS-02 (Statistical Analysis) Activity Diagram";
+	      newrank=true;
+	      splines=polyline;
+	      // Terminals
+	      Start [shape=point height=0.2 width=0.2];
+	      End [shape=point height=0.2 width=0.2 peripheries=2];
+	      // Choices
+	      node [shape=diamond fixedsize=true height=0.5 width=1.5 color=orange style=filled]
+	      choose_request [label="What type of request?"];
+
+	      // {rank=same choose_request, choose_valid_user}
+	      // Abstracted Services
+	      node [shape=box color=lightgrey style=filled]
+	      AuthService, ResponseService;
+	      // Remaining Nodes & Clusters
+	      node [shape=box color=white style=filled]
+	      Start->AuthService->choose_request;
 	      choose_request->Retrieve [label="View\nStatistics"];
 	      choose_request->StoreData [label="Put\nData"];
 	      subgraph cluster1 {
@@ -384,20 +534,12 @@
 		      ViewAnalysis;
 	      }
 	      ViewAnalysis->StructureResponse_join;
-	      subgraph cluster4 {
-		      label="Response Service"
-		      color=lightgrey
-		      style=filled
-		      StructureResponse;
-		      SendResponse;
-		      {rank=same StructureResponse, SendResponse}
-		      StructureResponse->SendResponse;
-	      }
+
 
 	      StructureResponse_join [label="" height=0 width=1 color=black]
-	      StructureResponse_join->StructureResponse;
+	      StructureResponse_join->ResponseService;
 
-	      SendResponse->End;
+	      ResponseService->End;
       }
     #+END_SRC
 
@@ -406,7 +548,97 @@
     [[file:res/bs_02_act.png]]
 *** Context Model
 ** <<<BS-03>>> : /Preordering/
+*** Service Decomposition
+    #+BEGIN_SRC dot :file res/bs_03_dcmp.png :tangle res/bs_03_dcmp.dot
+      digraph BS3 {
+	      label="BS-03 (Preordering) Service Decomposition";
+	      nodesep=0.1;
+	      rankdir=LR;
+	      // Hybrid, Task, Entity, Utility [shape=plaintext];
 
+	      Preorder;
+	      OrderService;
+	      AuthenticationService;
+	      ViewService;
+	      NotificationService;
+	      ResponseService;
+	      PaymentService;
+
+
+	      Preorder->{AuthenticationService,NotificationService,
+	      OrderService, ViewService,ResponseService}
+	      edge [style=dashed dir=back arrowtail=empty]
+	      Preorder->{PaymentService};
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/bs_03_dcmp.png]]
+
+*** Service Behavior
+    #+BEGIN_SRC dot :file res/bs_03_act.png :tangle res/bs_03_act.dot
+      digraph BS3 {
+	      label="BS-03 (Preorder) Activity Diagram";
+	      newrank=true;
+	      splines=polyline;
+	      // Terminals
+	      Start [shape=point height=0.2 width=0.2];
+	      End [shape=point height=0.2 width=0.2 peripheries=2];
+	      // Choices
+	      node [shape=diamond fixedsize=true height=0.5 width=1.5 color=orange style=filled]
+	      choose_request [label="What type of request?"];
+	      choose_payment [label="Is the user paying now?"];
+
+	      // Abstracted Services
+	      node [shape=box color=lightgrey style=filled]
+	      AuthService, ResponseService;
+	      // Remaining Nodes & Clusters
+	      node [shape=box color=white style=filled]
+	      Start->AuthService->choose_request;
+	      // choose_valid_user->StructureResponse_join [label="No"];
+	      // choose_valid_user->choose_request [label="Yes"];
+	      choose_request->ViewMenu [label="View\nMenu"];
+	      choose_request->AddMenuItems [label="Place\nOrder"];
+	      {rank=same ViewMenu, AddMenuItems}
+	      subgraph cluster1 {
+		      label="Order Service"
+		      color=lightgrey
+		      style=filled
+		      AddMenuItems [label="Add Menu Items"]
+		      SchedulePickup [label="Schedule Pickup"];
+		      AddMenuItems->SchedulePickup;
+	      }
+
+	      SchedulePickup->choose_payment;
+	      choose_payment->PayForOrder [label="Yes"];
+	      choose_payment->StructureResponse_join [label="No"];
+
+	      subgraph cluster2 {
+		      label="Payment Service"
+		      color=lightgrey
+		      style=filled
+		      PayForOrder;
+	      }
+	      PayForOrder->StructureResponse_join;
+	      subgraph cluster3 {
+		      label="View Service"
+		      color=lightgrey
+		      style=filled
+		      ViewMenu;
+	      }
+	      ViewMenu->StructureResponse_join;
+	      StructureResponse_join [label="" height=0 width=1 color=black]
+	      StructureResponse_join->ResponseService;
+
+	      ResponseService->End;
+      }
+    #+END_SRC
+
+    #+attr_latex: :height 16cm
+    #+RESULTS:
+    [[file:res/bs_03_act.png]]
+
+*** Context Model
 #+latex: \newpage
 * Design Space
 ** AK-SPAM
