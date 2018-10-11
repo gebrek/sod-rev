@@ -1,4 +1,4 @@
-% Created 2018-10-09 Tue 14:49
+% Created 2018-10-11 Thu 11:41
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -29,34 +29,81 @@
 \maketitle
 \tableofcontents
 
-\section{Introduction}
-\label{sec:org8e1c2ff}
+\section{{\bfseries\sffamily TODO} Introduction}
+\label{sec:orgb54efe6}
 \subsection{Purpose}
-\label{sec:org554539a}
-This document presents a design aimed at reducing waste, caused by
-a university cafeteria over-producing food, by using a pre-ordering
-service along with historical analysis to provide accurate
-short-term demand estimates as well as insight into overall trends.
-\subsection{Assumptions}
-\label{sec:orgdb4b367}
-\subsection{Terminology}
-\label{sec:org9f843d0}
-\section{Business Domain}
-\label{sec:org4272c87}
-\subsection{Model}
-\label{sec:org4db7db3}
+\label{sec:orgc5bf4ab}
+   This document presents a design aimed at reducing waste, caused by
+   a university cafeteria over-producing food, by using a pre-ordering
+   service along with historical analysis to provide accurate
+   short-term demand estimates as well as insight into overall trends.
+c** TODO Assumptions
+\subsection{{\bfseries\sffamily TODO} Terminology}
+\label{sec:org11e0de1}
 \begin{center}
-\includegraphics[width=.9\linewidth]{res/business_domain.png}
+\includegraphics[width=7cm]{res/decomp_example.png}
 \end{center}
 
-\subsection{Participants}
-\label{sec:org8590530}
+\begin{center}
+\includegraphics[width=.9\linewidth]{res/qoc_example.png}
+\end{center}
 
+\section{{\bfseries\sffamily DONE} Business Domain}
+\label{sec:orgae54992}
+\subsection{{\bfseries\sffamily DONE} Usage Scenarios}
+\label{sec:org415bbe4}
+\subsubsection{Student Case}
+\label{sec:org900b016}
+Frank and Giorgia are sitting in class taking notes on their
+laptops. They want to eat at the Cafeteria before their next
+lecture. The University Cafeteria has a wide variety of food
+available, and Frank is hungry so he looks up the Cafeteria's menu
+and decides to get fish and chips with a side of salad. Giorgia
+does the same, but also places an order and schedules to pick it
+up in thirty minutes.
+
+Frank and Giorgia leave class and go the Cafeteria. When they
+arrive Frank looks around for his desired meal, but does not see
+it. Another batch of fish and chips is being made and he'll have
+to wait or choose something else. 
+
+Giorgia instead goes to a kiosk labeled "Pick-up" and tells the
+clerk her name and order number. The clerk fetches her meal, and
+she goes to pay the cashier.
+\subsubsection{Cafeteria Case}
+\label{sec:org4fffb6e}
+At the beginning of a new day cooks in the Cafeteria begin
+preparing that day's meals. For the most part they stick to a
+routine menu with items appearing on and disappearing from the
+menu at regular intervals for various reasons. Whether because of
+shortage or to keep the menu fresh. This is the core menu.
+
+They also prepare some meals that have already been ordered for
+the morning. Which are placed in temporary storage, organized for
+quick retrieval and preserved to keep the hot and cold items
+fresh. Students come and go picking up their orders, or taking
+time choosing a meal. Some 
+
+The kitchen notices that a particular item is selling less than
+usual and by the end of the day there looks to be an excess amount
+of waste. The kitchen signals to the computer system that it
+should promote this item in some way. Either through a banner in
+the app, placing the item nearer to the top of the menu, putting
+on a token sale of the item, or whatever other promotional
+method.
+
+At the end of the month the kitchen notices that some items were
+unpopular based off of the sales statistics. The kitchen then
+decides that they will take those items off the menu, or make less
+for the next month.
+\subsection{{\bfseries\sffamily DONE} Participants}
+\label{sec:org231963c}
 \subsubsection{Stakeholders}
-\label{sec:orga18f928}
+\label{sec:orga1d593e}
 \begin{enumerate}
-\item \textbf{University ::}
-\label{sec:org0212f64}
+\item \textbf{University}
+\label{sec:org04fe1b4}
+
 The university will provide a preordering service for students
 and a notification service for the Cafeteria, informing it of
 students' orders.
@@ -64,84 +111,441 @@ students' orders.
 Additionally the University will be recording transactions made
 through the preorder service (and those made without it) so that
 the data may later be analyzed.
-\item \textbf{Digital Payment Processor ::}
-\label{sec:org6ad8f9f}
+
+\item \textbf{Digital Payment Processor}
+\label{sec:org5739f76}
+
 A Digital Payment Processing company provides exactly such a
 service, processing pre-order payments made through an online
 service.
 \end{enumerate}
+
 \subsubsection{Users}
-\label{sec:orgaa2e37c}
+\label{sec:orga5b7652}
 \begin{enumerate}
-\item \textbf{Cafeteria ::}
-\label{sec:org9500b49}
+\item \textbf{Cafeteria}
+\label{sec:org1d772aa}
+
 The Cafeteria serves food to Students, receiving orders directly
-from a student or indirectly via the University's preorder
-service. The Cafeteria produces the supply.
-\item \textbf{Students ::}
-\label{sec:org531929c}
+from a student or indirectly via the University's
+preorder/notification service. The Cafeteria will also report
+sales and unsold product. The Cafeteria produces the supply.
+
+\item {\bfseries\sffamily DONE} \textbf{Students}
+\label{sec:org275c468}
+
 A Student of the University is a customer of the
-Cafeteria. Students generate demand.
+Cafeteria. Students are the entities which generate demand.
 \end{enumerate}
-\subsection{Potential Services}
-\label{sec:org008c3fb}
-\subsubsection{Preorder Service}
-\label{sec:org35d391e}
+\subsection{{\bfseries\sffamily DONE} Model}
+\label{sec:org4de8a18}
+\begin{center}
+\includegraphics[height=8cm]{res/business_domain.png}
+\end{center}
+
+\subsection{{\bfseries\sffamily TODO} Conceptual Services}
+\label{sec:org85e4dc4}
+This section contains a list of every service that could be related
+to the operation of the proposed system. In it are both software
+and non-software services, we will describe the details of some of
+the former and assume the latter will be provided by other
+entities.
+\subsubsection*{Preorder Service\hfill{}\textsc{hybrid}}
+\label{sec:org0265729}
 The service by which Students can communicate their demand ahead
 of time.
-\begin{enumerate}
-\item \textbf{Authorization Service ::}
-\label{sec:org5aa266d}
+\begin{itemize}
+\item \textbf{Authorization Service}\hfill{}\textsc{utility}
+\label{sec:orgc6d0ccb}
+
 Provided by the University for the Students, Cafeteria, and
-University Administrators. Serves as a security gateway for
+University Administrators. Serves as a secure gateway for
 accessing software components of the system.
-\item \textbf{Online Ordering Service ::}
-\label{sec:org339dedf}
+
+\begin{itemize}
+\item Registration Service\hfill{}\textsc{utility}
+\label{sec:org642d610}
+\item Login Service\hfill{}\textsc{utility}
+\label{sec:org49d0442}
+\end{itemize}
+
+\item \textbf{Online Ordering Service}\hfill{}\textsc{hybrid}
+\label{sec:orgf9316a6}
+
 Provided by the University for the Students. An internet gateway
 Students use to interact with the system.
-\item \textbf{Notification Service ::}
-\label{sec:org4dbb3cc}
+
+\begin{itemize}
+\item (Menu) Viewing Service\hfill{}\textsc{entity}
+\label{sec:orgd2fa7ca}
+\item Shopping Cart Service\hfill{}\textsc{entity}
+\label{sec:org5d3af05}
+\item Scheduling Service\hfill{}\textsc{task}
+\label{sec:org206e589}
+\end{itemize}
+\item \textbf{Notification Service}\hfill{}\textsc{task}
+\label{sec:org9089bac}
+
 Provided by the University to the Cafeteria. Informs the
 Cafeteria of what orders have been placed, the contents of the
 order and the desired pickup time.
-\item \textbf{Digital Payment Service ::}
-\label{sec:org429fd58}
-Provided by the Digital Bank stakeholder, if the Student pays at
-the time of preordering, they are transferred to the Digital
-Bank's service in order to complete the payment.
-\item \textbf{Service Service ::}
-\label{sec:orgf215de6}
-Non-software service provided the Cafeteria, performing food
-preparation and acting as the point of sale.
-\end{enumerate}
-\subsubsection{Prediction Service}
-\label{sec:org4d46ec9}
+
+\item \textbf{Digital Payment Service}\hfill{}\textsc{utility}
+\label{sec:org67b8107}
+
+Provided by the Digital Bank stakeholder, if the Student wishes
+to pay at the time of preordering, they are transferred to the
+Digital Bank's service in order to complete the payment.
+
+\item \textbf{Food Service}\hfill{}\textsc{task}
+\label{sec:org9bafc7e}
+
+Non-software service provided the Cafeteria, performing manual
+labor required to complete orders.
+
+\begin{itemize}
+\item Food Preparation Service\hfill{}\textsc{task}
+\label{sec:orgba58b8a}
+
+Fulfillment of Student orders.
+
+\item Order Validation Service\hfill{}\textsc{task}
+\label{sec:orgd624d0e}
+
+Matching of a Student to their order at pickup.
+
+\item Food Fetching Service\hfill{}\textsc{task}
+\label{sec:orgb4ced6a}
+
+Retrieval of a Student's order at pickup.
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Prediction Service\hfill{}\textsc{hybrid}}
+\label{sec:org82466bd}
 The service by which a prediction of demand in the short and long
 term is made.
-\begin{enumerate}
-\item \textbf{Analysis Service ::}
-\label{sec:org4d76ca1}
-Owned by the University
-\item \textbf{Record Service ::}
-\label{sec:orgb215e4c}
+\begin{itemize}
+\item \textbf{Analysis Service}\hfill{}\textsc{entity}
+\label{sec:orga7bdfce}
+
+Owned by the University. Analyzes collected data in order to
+develop a model for future demand.
+
+\item \textbf{Record Service}\hfill{}\textsc{task}
+\label{sec:org4920492}
+
 Owned by the University. Records orders made through the preorder
-service as well as local sales made by the cafeteria, either
-automatically or manually updated.
-\end{enumerate}
-\subsection{Usage Scenarios}
-\label{sec:org06b632e}
-\subsubsection{Use Case 1}
-\label{sec:org3bec0e6}
-\subsubsection{Use Case 2}
-\label{sec:org0362ea8}
-\section{Functional Requirements}
-\label{sec:org4cd644b}
-\section{Quality Requirements}
-\label{sec:orgd749fb0}
+service or collects data regarding the other sales made at the
+Cafeteria.
+
+\begin{itemize}
+\item Reporting Service\hfill{}\textsc{utility}
+\label{sec:org7ea44fa}
+
+Provided for the Cafeteria by the University. The Cafeteria
+reports sales made, preorders fulfilled, and excess production.
+\end{itemize}
+
+\item \textbf{Data Storage Service}\hfill{}\textsc{task}
+\label{sec:org5cdd61d}
+
+The data the University collects on orders needs to be stored
+somewhere, whether this is done on an owned asset or if though a
+service provided by another stakeholder.
+
+\item \textbf{(Data) Viewing Service}\hfill{}\textsc{entity}
+\label{sec:org76e517e}
+
+The data which has been stored must be accessible for the
+University to perform analysis.
+\end{itemize}
+
+\subsubsection*{Menu Changing Service\hfill{}\textsc{task}}
+\label{sec:org002019e}
+The Cafeteria has to be able to change the menu from week to week,
+or over whatever time period the menu changes.
+
+\subsubsection{View Service\hfill{}\textsc{entity}}
+\label{sec:org5183405}
+\section{{\bfseries\sffamily DONE} Functional Requirements}
+\label{sec:orgc263671}
+
+In this section we list some of the functional requirements that our
+services, as they are described, must fulfill. They have been
+derived from the services outlined in the \hyperref[sec:org85e4dc4]{Conceptual Services}
+section. The format is:
+
+\begin{itemize}
+\item \textbf{ID : \emph{Name}}
+
+Short Description
+\end{itemize}
+
+For our purposes we will select functional requirements most
+relevant to the problem of accurately predicting demand. To this end
+we will be concerned with \hyperref[org61a3033]{FR-01} (\emph{Placing Orders}), \hyperref[orgf763ee3]{FR-04} (\emph{Record
+Transactions}), and \hyperref[org9a5b87c]{FR-08} (\emph{Trend Analysis}). These three functions
+form a skeleton of the proposed service: when a Student places an
+order, that data is collected by the University and saved for future
+analysis. This means we will neglecting the Digital Bank
+stakeholder, and perhaps only touching the actions of the
+Cafeteria. The other functionalities listed are necessary but
+peripheral to the core intent of this proposal.
+
+\newpage
+\subsection*{\emph{Requirements}}
+\label{sec:orga6ac3e1}
+\subsubsection*{* \label{org61a3033}FR-01 : \emph{Placing Orders}}
+\label{sec:orga2b7abe}
+A Student must be able to place an order without being physically
+present at the Cafeteria
+\subsubsection*{\label{org3d2ea20}FR-02 : \emph{Schedule Pickup}}
+\label{sec:orga7d1da5}
+As an order is placed, the Student should also be able to specify
+a time they wish to obtain their order.
+\subsubsection*{\label{org9f969ba}FR-03 : \emph{Electronic Payment}}
+\label{sec:orge420147}
+A Student should be able to optionally pay at the time of placing
+their order.
+\subsubsection*{* \label{orgf763ee3}FR-04 : \emph{Record Transactions}}
+\label{sec:orgc059df8}
+Each transaction made must be recorded.
+\subsubsection*{\label{orgc0a2608}FR-05 : \emph{Send Transactions Records}}
+\label{sec:org2a547b8}
+If a transaction is not made through the preorder system, the
+Cafeteria must still report it to the University.
+\subsubsection*{\label{org6b8415b}FR-06 : \emph{Send Cafeteria Orders}}
+\label{sec:org7c0894c}
+There must be a system in place so that the Cafeteria receives
+preorders as soon as possible.
+\subsubsection*{\label{orgb11cc56}FR-07 : \emph{Authorization}}
+\label{sec:orgff0f4e5}
+The system must be properly secured so that users of the system
+may register, log in, and perform whatever actions that particular
+user is permitted and no others.
+\subsubsection*{* \label{org9a5b87c}FR-08 : \emph{Trend Analysis}}
+\label{sec:org97ff0cf}
+The system must have some way of extrapolating demand based on the
+number of preorders, correlated with historical data.
+
+\noindent\rule{\textwidth}{0.5pt}
+
+All this and more\ldots{}
+\newpage
+\section{{\bfseries\sffamily TODO} Quality Requirements}
+\label{sec:org7e5bc9e}
+
+This section will discuss the most important qualities in
+considering the problem of more accurately predicting and meeting
+demand. For clarity we will use standard\footnote{ISO/IEC 25010:2011} definitions.
+
+\subsection{{\bfseries\sffamily DONE} \label{org09b1f52}QR-01 : \emph{Security}}
+\label{sec:org69bb27d}
+\begin{description}
+\item[{Definition}] degree to which a product or system protects
+information and data so that persons or other
+products or systems have the degree of data access
+appropriate to their types and levels of
+authorization
+\end{description}
+
+
+We choose security because adoption of the system is predicated on
+security. If the system is not secure and leaks important
+information, or is otherwise compromised, trust in the system will
+diminish to nothing. Any security faults regarding the online
+payment process would be especially deleterious.
+\subsection{{\bfseries\sffamily TODO} \label{org0ca1a1d}QR-02 : \emph{Availability}}
+\label{sec:org8ed8c4c}
+\begin{description}
+\item[{Definition}] degree to which a system, product or component is
+operational and accessible when required for use
+\end{description}
+
+
+The system must be reliably available to users on campus and off,
+with as little down-time as possible. The end users rely on the
+preorder service to order food ahead of time, and the University
+relies on it to develop a model for demand
+
+\subsection{{\bfseries\sffamily TODO} \label{org64b5be4}QR-03 : \emph{Usability}}
+\label{sec:org64675f1}
+\begin{itemize}
+\item Note taken on \textit{[2018-10-11 Thu 11:40] } \\
+Update motivation
+\item[{Definition}] degree to which a product or system can be used by
+specified users to achieve specified goals with
+effectiveness, efficiency and satisfaction in a
+specified context of use
+\end{itemize}
+
+
+The students will want to be able to use the services quickly and
+easily, because they only need to browse through the menu and place
+an order, regardless of the device. If the service is too complex
+to use they will not make pre-ordering a habit which contradicts
+our goal of 
+\newpage
+\subsection{{\bfseries\sffamily TODO} \label{orgff76d7b}QR-04 : \emph{Reliability}}
+\label{sec:org72e0c61}
+\begin{description}
+\item[{Definition}] degree to which a system, product or component
+performs specified functions under specified
+conditions for a specified period of time
+\end{description}
 \section{Business Services}
-\label{sec:org75e9ecb}
+\label{sec:orgc3306c0}
+\subsection{\label{org3795063}BS-01 : \emph{Transaction Recording}}
+\label{sec:org4942511}
+\subsubsection{{\bfseries\sffamily TODO} Involved Participants}
+\label{sec:org553be4e}
+\subsubsection{{\bfseries\sffamily TODO} Detailed Operational Description}
+\label{sec:org4d2eaca}
+\subsubsection{{\bfseries\sffamily DONE} Service Behavior}
+\label{sec:org512d23e}
+In this first activity diagram we will be more explicit about each
+service involved, but we will abstract some (Authentication and
+Response) away to simplify the other activity diagrams.
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{res/bs_01_act.png}
+\end{center}
+\subsubsection{{\bfseries\sffamily DONE} Service Decomposition}
+\label{sec:org6955972}
+\begin{center}
+\includegraphics[width=.9\linewidth]{res/bs_01_dcmp.png}
+\end{center}
+\newpage
+
+\subsection{\label{org9e1dcbc}BS-02 : \emph{Statistical Analysis}}
+\label{sec:org86d7450}
+\subsubsection{{\bfseries\sffamily TODO} Involved Participants}
+\label{sec:org8851efc}
+\subsubsection{{\bfseries\sffamily TODO} Detailed Operational Description}
+\label{sec:org1ba3a3f}
+\subsubsection{{\bfseries\sffamily DONE} Service Behavior}
+\label{sec:orgaf85cb6}
+\begin{center}
+\includegraphics[height=16.3cm]{res/bs_02_act.png}
+\end{center}
+\subsubsection{{\bfseries\sffamily DONE} Service Candidates Decomposition}
+\label{sec:org8953840}
+\begin{center}
+\includegraphics[width=.9\linewidth]{res/bs_02_dcmp.png}
+\end{center}
+\newpage
+\subsection{\label{orgfa6460e}BS-03 : \emph{Preordering}}
+\label{sec:org4afd8d2}
+\subsubsection{{\bfseries\sffamily TODO} Involved Participants}
+\label{sec:orgb05d243}
+\subsubsection{{\bfseries\sffamily TODO} Detailed Operational Description}
+\label{sec:org7e40423}
+\subsubsection{{\bfseries\sffamily DONE} Service Behavior}
+\label{sec:org51dc912}
+\begin{center}
+\includegraphics[height=16cm]{res/bs_03_act.png}
+\end{center}
+\subsubsection{{\bfseries\sffamily DONE} Service Decomposition}
+\label{sec:org08287b1}
+\begin{center}
+\includegraphics[width=.9\linewidth]{res/bs_03_dcmp.png}
+\end{center}
+
+\newpage
 \section{Design Space}
-\label{sec:org4741617}
+\label{sec:orge066981}
+\subsection*{AK-SPAM}
+\label{sec:org440fcbe}
+\subsubsection*{Concern}
+\label{sec:orgc6deb3d}
+\begin{description}
+\item[{Con\#1}] How can the user be encouraged to use the pre-ordering
+system? Are there any barriers or concerns that the
+customer or business would have that would make them
+not want to use it, undercutting the primary goal of
+reducing waste via this system?
+\end{description}
+\subsubsection*{Criteria}
+\label{sec:org0a5e5bd}
+\begin{description}
+\item[{Cr\#1}] Security
+\item[{Cr\#2}] Availability
+\item[{Cr\#3}] Reliability
+\end{description}
+\subsubsection*{Options}
+\label{sec:org2895559}
+\begin{itemize}
+\item Trusted Third Party Payment
+\label{sec:org3e5b13d}
+\begin{description}
+\item[{ID}] Con\#1-Opt\#1
+\item[{Description}] Pre-order payment should be done through a
+trusted and known third party with experience so
+the process is secure.
+\item[{Status}] Decided
+\item[{Relationship(s)}] none
+\item[{Evaluation}] ---
+\begin{itemize}
+\item Cr\#1 --- This option is secure as long as the
+third party maintains integrity. While we have a little less
+control over the security of the system, a third-party
+payment processing company's business is predicated on
+security, so we assess this positively.
+\item Cr\#2 --- This option's availability depends again on the
+third party, it is partially out of our control, depending on
+the service model of the third party.
+\item Cr\#3 --- This option should be reliable since we are only one
+client of the Digital Bank, it is important for
+them for their service to be reliable
+\end{itemize}
+\item[{Rationale}] Given that the third-party processing company is
+of repute, this option should have the best
+security, availability, and usability. The same
+functionality is achieved as implementing it
+in-house but with a slight recurring cost.
+\end{description}
+\item Payment on Pickup
+\label{sec:org246284c}
+\begin{description}
+\item[{ID}] Con\#1-Opt\#2
+\item[{Description}] There is no online payment system, the customer
+pays for items upon receipt.
+\item[{Status}] Rejected
+\item[{Relationship(s)}] none
+\item[{Evaluation}] ---
+\begin{itemize}
+\item Cr\#1 --- This option is as secure as the Cafeteria itself. No
+additional attack vectors are added to the existing
+infrastructure.
+\item Cr\#2 --- The rest of the system may still have high
+availability, but this option does not improve on
+availability with respect to payment.
+\item Cr\#3 ---
+\end{itemize}
+\item[{Rationale}] 
+\end{description}
+\item In-house Payment System
+\label{sec:orgf349ab1}
+\begin{description}
+\item[{ID}] Con\#1-Opt\#3
+\item[{Description}] 
+
+\item[{Status}] 
+
+\item[{Relationship(s)}] 
+
+\item[{Evaluation}] 
+
+\item[{Rationale}] 
+\end{description}
+\end{itemize}
+\subsubsection*{QOC Diagram}
+\label{sec:org2177d6b}
+\begin{center}
+\includegraphics[width=.9\linewidth]{res/qoc_01.png}
+\end{center}
+
 \section{Sustainability Strategies}
-\label{sec:org8094603}
+\label{sec:orgc7ae610}
 \end{document}
