@@ -1,13 +1,13 @@
 #+TITLE: SOD Assignment 1: Revisited
 #+AUTHOR: Jacob Sonnenberg
-* Introduction
+* TODO Introduction
 ** Purpose
    This document presents a design aimed at reducing waste, caused by
    a university cafeteria over-producing food, by using a pre-ordering
    service along with historical analysis to provide accurate
    short-term demand estimates as well as insight into overall trends.
-** Assumptions
-** Terminology
+** TODO Assumptions
+** TODO Terminology
    #+BEGIN_SRC dot :file res/decomp_example.png :tangle res/decomp_example.dot
    digraph G {
              label="Template for Service Decomposition";
@@ -39,8 +39,7 @@
 
 	     Question--{Option1, Option2};
 	     Option1--Criterion1 [label="Positive Assess." color=green];
-	     Option1--Criterion2 [color=green];
-	     Option2--Criterion1 [color=red];
+	     Option2--Criterion1 [label="Neutral Assess."]
 	     Option2--Criterion2 [color=red label="Negative Assess."];
      }
    #+END_SRC
@@ -48,8 +47,8 @@
    #+RESULTS:
    [[file:res/qoc_example.png]]
 
-* Business Domain
-** Usage Scenarios
+* DONE Business Domain
+** DONE Usage Scenarios
 *** Student Case
     Frank and Giorgia are sitting in class taking notes on their
     laptops. They want to eat at the Cafeteria before their next
@@ -92,7 +91,7 @@
     unpopular based off of the sales statistics. The kitchen then
     decides that they will take those items off the menu, or make less
     for the next month.
-** Participants
+** DONE Participants
 *** Stakeholders
 **** *University*
 
@@ -118,11 +117,11 @@
      preorder/notification service. The Cafeteria will also report
      sales and unsold product. The Cafeteria produces the supply.
 
-**** *Students*
+**** DONE *Students*
 
      A Student of the University is a customer of the
      Cafeteria. Students are the entities which generate demand.
-** Model
+** DONE Model
    #+BEGIN_SRC dot :file res/business_domain.png :tangle res/business_domain.dot
      digraph BznsDmn {
 	     label="Business Domain Model"
@@ -174,7 +173,7 @@
    #+RESULTS:
    [[file:res/business_domain.png]]
 
-** Conceptual Services
+** TODO Conceptual Services
    This section contains a list of every service that could be related
    to the operation of the proposed system. In it are both software
    and non-software services, we will describe the details of some of
@@ -274,7 +273,7 @@
     or over whatever time period the menu changes.
 
 *** View Service                                                     :entity:
-* Functional Requirements
+* DONE Functional Requirements
 
   In this section we list some of the functional requirements that our
   services, as they are described, must fulfill. They have been
@@ -330,58 +329,59 @@
 
     All this and more...
 #+latex: \newpage
-* Quality Requirements
+* TODO Quality Requirements
 
   This section will discuss the most important qualities in
   considering the problem of more accurately predicting and meeting
   demand. For clarity we will use standard[fn:1] definitions.
 
-** <<<QR-01>>> : /Security/
+** DONE <<<QR-01>>> : /Security/
    + Definition :: degree to which a product or system protects
                    information and data so that persons or other
                    products or systems have the degree of data access
                    appropriate to their types and levels of
                    authorization
 
-** <<<QR-02>>> : /Availability/
+
+   We choose security because adoption of the system is predicated on
+   security. If the system is not secure and leaks important
+   information, or is otherwise compromised, trust in the system will
+   diminish to nothing. Any security faults regarding the online
+   payment process would be especially deleterious.
+** TODO <<<QR-02>>> : /Availability/
    + Definition :: degree to which a system, product or component is
                    operational and accessible when required for use
 
-** <<<QR-03>>> : /Reliability/
-   + Definition :: degree to which a system, product or component
-                   performs specified functions under specified
-                   conditions for a specified period of time
 
-** <<<QR-04>>> : /Usability/
+   The system must be reliably available to users on campus and off,
+   with as little down-time as possible. The end users rely on the
+   preorder service to order food ahead of time, and the University
+   relies on it to develop a model for demand
+
+** TODO <<<QR-03>>> : /Usability/
+   - Note taken on [2018-10-11 Thu 11:40] \\
+     Update motivation
    + Definition :: degree to which a product or system can be used by
                    specified users to achieve specified goals with
                    effectiveness, efficiency and satisfaction in a
                    specified context of use
 
+
+   The students will want to be able to use the services quickly and
+   easily, because they only need to browse through the menu and place
+   an order, regardless of the device. If the service is too complex
+   to use they will not make pre-ordering a habit which contradicts
+   our goal of 
 #+latex: \newpage
+** TODO <<<QR-04>>> : /Reliability/
+   + Definition :: degree to which a system, product or component
+                   performs specified functions under specified
+                   conditions for a specified period of time
 * Business Services
 ** <<<BS-01>>> : /Transaction Recording/
-*** Service Decomposition
-    #+BEGIN_SRC dot :file res/bs_01_dcmp.png :tangle res/bs_01_dcmp.dot
-      digraph BS1 {
-	      label="BS-01 (Transaction Recording) Service Decomposition";
-	      rankdir=LR;
-	      AuthenticationService;
-	      RecordTransactions;
-	      MonitorService;
-	      ViewService;
-	      StorageService;
-
-	      RecordTransactions->{AuthenticationService,MonitorService, ViewService, StorageService};
-	      edge [style=dashed dir=back arrowtail=empty];
-	      RecordTransactions->{PreorderService};
-
-      }
-    #+END_SRC
-
-    #+RESULTS:
-    [[file:res/bs_01_dcmp.png]]
-*** Service Behavior
+*** TODO Involved Participants
+*** TODO Detailed Operational Description
+*** DONE Service Behavior
     In this first activity diagram we will be more explicit about each
     service involved, but we will abstract some (Authentication and
     Response) away to simplify the other activity diagrams.
@@ -426,7 +426,9 @@
 		      label="Monitor Service"
 		      color=lightgrey
 		      style=filled
+		      RegisterSensor;
 		      MonitorSales;
+		      RegisterSensor->MonitorSales;
 	      }
 	      MonitorSales->StoreData;
 	      subgraph cluster2 {
@@ -461,33 +463,35 @@
       }
     #+END_SRC
 
+
     #+RESULTS:
     [[file:res/bs_01_act.png]]
-
-*** Context Model
-** <<<BS-02>>> : /Statistical Analysis/
-*** Service Decomposition
-    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
-      digraph BS2 {
-	      label="BS-02 (Statistical Analysis) Service Decomposition";
+*** DONE Service Decomposition
+    #+BEGIN_SRC dot :file res/bs_01_dcmp.png :tangle res/bs_01_dcmp.dot
+      digraph BS1 {
+	      label="BS-01 (Transaction Recording) Service Decomposition";
 	      rankdir=LR;
-	      AnalysisService;
 	      AuthenticationService;
-	      StatisticService;
+	      RecordTransactions;
+	      MonitorService;
 	      ViewService;
 	      StorageService;
-	      ResponseService;
 
-	      // edge [style=dashed dir=back arrowtail=empty]
-	      AnalysisService->{AuthenticationService,StatisticService,
-				ViewService,StorageService,ResponseService}
+	      RecordTransactions->{AuthenticationService,MonitorService, ViewService, StorageService};
+	      edge [style=dashed dir=back arrowtail=empty];
+	      RecordTransactions->{PreorderService};
+
       }
     #+END_SRC
 
     #+RESULTS:
-    [[file:res/bs_02_dcmp.png]]
+    [[file:res/bs_01_dcmp.png]]
 #+latex: \newpage
-*** Service Behavior
+
+** <<<BS-02>>> : /Statistical Analysis/
+*** TODO Involved Participants
+*** TODO Detailed Operational Description
+*** DONE Service Behavior
     #+BEGIN_SRC dot :file res/bs_02_act.png :tangle res/bs_02_act.dot
       digraph BS2 {
 	      label="BS-02 (Statistical Analysis) Activity Diagram";
@@ -546,36 +550,31 @@
     #+attr_latex: :height 16.3cm
     #+RESULTS:
     [[file:res/bs_02_act.png]]
-*** Context Model
-** <<<BS-03>>> : /Preordering/
-*** Service Decomposition
-    #+BEGIN_SRC dot :file res/bs_03_dcmp.png :tangle res/bs_03_dcmp.dot
-      digraph BS3 {
-	      label="BS-03 (Preordering) Service Decomposition";
-	      nodesep=0.1;
+*** DONE Service Candidates Decomposition
+    #+BEGIN_SRC dot :file res/bs_02_dcmp.png :tangle res/bs_02_dcmp.dot
+      digraph BS2 {
+	      label="BS-02 (Statistical Analysis) Service Decomposition";
 	      rankdir=LR;
-	      // Hybrid, Task, Entity, Utility [shape=plaintext];
-
-	      Preorder;
-	      OrderService;
+	      AnalysisService;
 	      AuthenticationService;
+	      StatisticService;
 	      ViewService;
-	      NotificationService;
+	      StorageService;
 	      ResponseService;
-	      PaymentService;
 
-
-	      Preorder->{AuthenticationService,NotificationService,
-	      OrderService, ViewService,ResponseService}
-	      edge [style=dashed dir=back arrowtail=empty]
-	      Preorder->{PaymentService};
+	      // edge [style=dashed dir=back arrowtail=empty]
+	      AnalysisService->{AuthenticationService,StatisticService,
+				ViewService,StorageService,ResponseService}
       }
     #+END_SRC
 
     #+RESULTS:
-    [[file:res/bs_03_dcmp.png]]
-
-*** Service Behavior
+    [[file:res/bs_02_dcmp.png]]
+#+latex: \newpage
+** <<<BS-03>>> : /Preordering/
+*** TODO Involved Participants
+*** TODO Detailed Operational Description
+*** DONE Service Behavior
     #+BEGIN_SRC dot :file res/bs_03_act.png :tangle res/bs_03_act.dot
       digraph BS3 {
 	      label="BS-03 (Preorder) Activity Diagram";
@@ -637,8 +636,33 @@
     #+attr_latex: :height 16cm
     #+RESULTS:
     [[file:res/bs_03_act.png]]
+*** DONE Service Decomposition
+    #+BEGIN_SRC dot :file res/bs_03_dcmp.png :tangle res/bs_03_dcmp.dot
+      digraph BS3 {
+	      label="BS-03 (Preordering) Service Decomposition";
+	      nodesep=0.1;
+	      rankdir=LR;
+	      // Hybrid, Task, Entity, Utility [shape=plaintext];
 
-*** Context Model
+	      Preorder;
+	      OrderService;
+	      AuthenticationService;
+	      ViewService;
+	      NotificationService;
+	      ResponseService;
+	      PaymentService;
+
+
+	      Preorder->{AuthenticationService,NotificationService,
+	      OrderService, ViewService,ResponseService}
+	      edge [style=dashed dir=back arrowtail=empty]
+	      Preorder->{PaymentService};
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/bs_03_dcmp.png]]
+
 #+latex: \newpage
 * Design Space
 ** AK-SPAM
@@ -646,7 +670,11 @@
    :UNNUMBERED: t
    :END:
 *** Concern
-    + Con#1 :: How do we promote the use of digital services?
+    + Con#1 :: How can the user be encouraged to use the pre-ordering
+               system? Are there any barriers or concerns that the
+               customer or business would have that would make them
+               not want to use it, undercutting the primary goal of
+               reducing waste via this system?
 *** Criteria
     + Cr#1 :: Security
     + Cr#2 :: Availability
@@ -660,12 +688,17 @@
      + Status :: Decided
      + Relationship(s) :: none
      + Evaluation :: ---
-       + Cr#1 --- This option is secure, as long as the
-         third party maintains integrity.
+       + Cr#1 --- This option is secure as long as the
+         third party maintains integrity. While we have a little less
+         control over the security of the system, a third-party
+         payment processing company's business is predicated on
+         security, so we assess this positively.
        + Cr#2 --- This option's availability depends again on the
          third party, it is partially out of our control, depending on
          the service model of the third party.
-       + Cr#3 --- 
+       + Cr#3 --- This option should be reliable since we are only one
+         client of the Digital Bank, it is important for
+         them for their service to be reliable
      + Rationale :: Given that the third-party processing company is
                     of repute, this option should have the best
                     security, availability, and usability. The same
@@ -678,11 +711,12 @@
      + Status :: Rejected
      + Relationship(s) :: none
      + Evaluation :: ---
-       + Cr#1 --- This option is as secure as the
-         Cafeteria itself. No additional attack vectors
-         are added to the existing infrastructure.
-       + Cr#2 --- This option does not improve on availability, there
-         is no 
+       + Cr#1 --- This option is as secure as the Cafeteria itself. No
+         additional attack vectors are added to the existing
+         infrastructure.
+       + Cr#2 --- The rest of the system may still have high
+         availability, but this option does not improve on
+         availability with respect to payment.
        + Cr#3 --- 
      + Rationale :: 
 **** In-house Payment System
@@ -692,6 +726,31 @@
      + Relationship(s) ::
      + Evaluation ::
      + Rationale :: 
+*** QOC Diagram
+    #+BEGIN_SRC dot :file res/qoc_01.png :tangle res/qoc_01.dot
+    graph G {
+            label="QOC Diagram for Con#1"
+	    Question [label="Q: How can the user\nbe encouraged to use\nthe preordering sytem?"];
+	    node [color=green]
+	    Option1 [label="O: Trusted Third\nParty Payment"]
+	    node [color=red]
+	    Option2 [label="O: Payment\non Pickup"];
+	    Option3 [label="O: In-house\nPayment System"];
+	    {rank=same Option1, Option2, Option3}
+	    node [color=black]
+	    Criterion1 [label="C: Security"];
+	    Criterion2 [label="C: Availability"];
+	    Criterion3 [label="C: Reliability"];
+	    {rank=same Criterion1, Criterion2, Criterion3}
+	    Question--{Option1, Option2, Option3};
+	    Option1--{Criterion1, Criterion2, Criterion3} [color=green];
+	    Option2--{Criterion1}
+    }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/qoc_01.png]]
+
 * Sustainability Strategies
 
 * Footnotes
