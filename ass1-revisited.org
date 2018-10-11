@@ -273,6 +273,9 @@
     or over whatever time period the menu changes.
 
 *** View Service                                                     :entity:
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :END:
 * DONE Functional Requirements
 
   In this section we list some of the functional requirements that our
@@ -678,7 +681,7 @@
 *** Criteria
     + Cr#1 :: Security
     + Cr#2 :: Availability
-    + Cr#3 :: Reliability
+    + Cr#3 :: Usability
 *** Options
 **** Trusted Third Party Payment
      + ID :: Con#1-Opt#1
@@ -696,9 +699,9 @@
        + Cr#2 --- This option's availability depends again on the
          third party, it is partially out of our control, depending on
          the service model of the third party.
-       + Cr#3 --- This option should be reliable since we are only one
-         client of the Digital Bank, it is important for
-         them for their service to be reliable
+       + Cr#3 --- This option should have positive usability,
+         especially if it is through an already common service that
+         Students already use.
      + Rationale :: Given that the third-party processing company is
                     of repute, this option should have the best
                     security, availability, and usability. The same
@@ -715,9 +718,13 @@
          additional attack vectors are added to the existing
          infrastructure.
        + Cr#2 --- The rest of the system may still have high
-         availability, but this option does not improve on
-         availability with respect to payment.
-       + Cr#3 --- 
+         availability, but payment is only available when at the
+         Cafeteria, so this option has a negative effect on
+         availability.
+       + Cr#3 --- This option does nothing to improve usability,
+         it does not enable Students to complete payment more than
+         without the system so we assess this as negative in the
+         usability dimension.
      + Rationale :: 
 **** In-house Payment System
      + ID :: Con#1-Opt#3
@@ -740,11 +747,14 @@
 	    node [color=black]
 	    Criterion1 [label="C: Security"];
 	    Criterion2 [label="C: Availability"];
-	    Criterion3 [label="C: Reliability"];
+	    Criterion3 [label="C: Usability"];
 	    {rank=same Criterion1, Criterion2, Criterion3}
 	    Question--{Option1, Option2, Option3};
 	    Option1--{Criterion1, Criterion2, Criterion3} [color=green];
 	    Option2--{Criterion1}
+	    Option2--{Criterion2, Criterion3} [color=red];
+	    Option3--{Criterion1} [color=red];
+	    Option3--{Criterion2, Criterion3} [color=green];
     }
     #+END_SRC
 
