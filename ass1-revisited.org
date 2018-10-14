@@ -68,10 +68,7 @@
     she goes to pay the cashier.
 *** Cafeteria Case
     At the beginning of a new day cooks in the Cafeteria begin
-    preparing that day's meals. For the most part they stick to a
-    routine menu with items appearing on and disappearing from the
-    menu at regular intervals for various reasons. Whether because of
-    shortage or to keep the menu fresh. This is the core menu.
+    preparing that day's meals. This is the core menu.
 
     They also prepare some meals that have already been ordered for
     the morning. Which are placed in temporary storage, organized for
@@ -103,7 +100,7 @@
      through the preorder service (and those made without it) so that
      the data may later be analyzed.
 
-**** *Digital Payment Processor*
+**** *Digital Bank*
 
      A Digital Payment Processing company provides exactly such a
      service, processing pre-order payments made through an online
@@ -459,7 +456,7 @@
 		      StructureResponse->SendResponse;
 	      }
 
-	      StructureResponse_join [label="" height=0 width=1 color=black]
+	      StructureResponse_join [label="" shape=diamond height=0.3 width=0.3 style=normal color=black]
 	      StructureResponse_join->StructureResponse;
 
 	      SendResponse->End;
@@ -543,7 +540,7 @@
 	      ViewAnalysis->StructureResponse_join;
 
 
-	      StructureResponse_join [label="" height=0 width=1 color=black]
+	      StructureResponse_join [label="" shape=diamond height=0.3 width=0.3 style=normal color=black]
 	      StructureResponse_join->ResponseService;
 
 	      ResponseService->End;
@@ -629,7 +626,7 @@
 		      ViewMenu;
 	      }
 	      ViewMenu->StructureResponse_join;
-	      StructureResponse_join [label="" height=0 width=1 color=black]
+	      StructureResponse_join [label="" shape=diamond height=0.3 width=0.3 style=normal color=black]
 	      StructureResponse_join->ResponseService;
 
 	      ResponseService->End;
