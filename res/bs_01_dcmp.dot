@@ -1,0 +1,14 @@
+digraph BS1 {
+	label="BS-01 (Transaction Recording) Service Decomposition";
+	rankdir=LR;
+	AuthenticationService;
+	RecordTransactions;
+	MonitorService;
+	ViewService;
+	StorageService;
+
+	RecordTransactions->{AuthenticationService,MonitorService, ViewService, StorageService};
+	edge [style=dashed dir=back arrowtail=empty];
+	RecordTransactions->{PreorderService};
+
+}

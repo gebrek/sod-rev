@@ -1,0 +1,7 @@
+digraph G {
+          label="Template for Service Decomposition";
+	  Service;
+	  Component1, Component2;
+	  Service->Component1 [label="<<include>>"];
+	  Service->Component2 [style=dashed dir=back arrowtail=empty label="<<extend>>"]
+}

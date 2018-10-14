@@ -1,0 +1,52 @@
+digraph BS2 {
+	label="BS-02 (Statistical Analysis) Activity Diagram";
+	newrank=true;
+	splines=polyline;
+	// Terminals
+	Start [shape=point height=0.2 width=0.2];
+	End [shape=point height=0.2 width=0.2 peripheries=2];
+	// Choices
+	node [shape=diamond fixedsize=true height=0.5 width=1.5 color=orange style=filled]
+	choose_request [label="What type of request?"];
+
+	// {rank=same choose_request, choose_valid_user}
+	// Abstracted Services
+	node [shape=box color=lightgrey style=filled]
+	AuthService, ResponseService;
+	// Remaining Nodes & Clusters
+	node [shape=box color=white style=filled]
+	Start->AuthService->choose_request;
+	choose_request->Retrieve [label="View\nStatistics"];
+	choose_request->StoreData [label="Put\nData"];
+	subgraph cluster1 {
+		label="Statistics Service"
+		color=lightgrey
+		style=filled
+		Retrieve [label="Retrieve Relevant\nData"]
+		Analyze [label="Analyze Data"];
+		Retrieve->Analyze;
+	}
+	Analyze->ViewAnalysis;
+	subgraph cluster2 {
+		label="Storage Service"
+		color=lightgrey
+		style=filled
+		StoreData;
+	}
+	{rank=same StoreData, Retrieve}
+	// {rank=same Analyze, ViewAnalysis}
+	StoreData->StructureResponse_join;
+	subgraph cluster3 {
+		label="View Service"
+		color=lightgrey
+		style=filled
+		ViewAnalysis;
+	}
+	ViewAnalysis->StructureResponse_join;
+
+
+	StructureResponse_join [label="" shape=diamond height=0.3 width=0.3 style=normal color=black]
+	StructureResponse_join->ResponseService;
+
+	ResponseService->End;
+}

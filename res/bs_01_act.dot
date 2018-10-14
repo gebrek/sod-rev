@@ -1,0 +1,74 @@
+digraph BS1 {
+	label="BS-01 (Statistical Analysis) Activity Diagram";
+	newrank=true;
+	splines=polyline;
+	// Terminals
+	Start [shape=point height=0.2 width=0.2];
+	End [shape=point height=0.2 width=0.2 peripheries=2];
+	// Choices
+	node [shape=diamond fixedsize=true height=0.5 width=1.5 color=orange style=filled]
+	choose_request [label="What type of request?"];
+	choose_valid_user [label="Is this user valid?"];
+
+	{rank=same choose_request, choose_valid_user}
+	// Remaining Nodes & Clusters
+	node [shape=box color=white style=filled]
+	subgraph cluster0 {
+		label="Authentication Service"
+		color=lightgrey
+		style=filled
+		AuthUser [label="Authenticate User"];
+		choose_valid_user;
+		AuthUser->choose_valid_user;
+	}
+	Start->AuthUser;
+	choose_valid_user->StructureResponse_join [label="No"];
+	choose_valid_user->choose_request [label="Yes"];
+	choose_request->ViewSales [label="View\nStatistics"];
+	choose_request->StoreData [label="Put\nData"];
+	subgraph cluster5 {
+		label="Preorder Service"
+		color=lightgrey
+		style=filled
+		OrderNotifications;
+	}
+	OrderNotifications->MonitorSales;
+	subgraph cluster1 {
+		label="Monitor Service"
+		color=lightgrey
+		style=filled
+		RegisterSensor;
+		MonitorSales;
+		RegisterSensor->MonitorSales;
+	}
+	MonitorSales->StoreData;
+	subgraph cluster2 {
+		label="Storage Service"
+		color=lightgrey
+		style=filled
+		StoreData;
+	}
+	// {rank=same Analyze, ViewAnalysis}
+	StoreData->StructureResponse_join;
+	subgraph cluster3 {
+		label="View Service"
+		color=lightgrey
+		style=filled
+		ViewSales;
+	}
+	ViewSales->StructureResponse_join;
+	subgraph cluster4 {
+		label="Response Service"
+		color=lightgrey
+		style=filled
+		StructureResponse;
+		SendResponse;
+		{rank=same StructureResponse, SendResponse}
+		StructureResponse->SendResponse;
+	}
+
+	StructureResponse_join [label="" shape=diamond height=0.3 width=0.3 style=normal color=black]
+	StructureResponse_join->StructureResponse;
+
+	SendResponse->End;
+}

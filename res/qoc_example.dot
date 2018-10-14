@@ -1,0 +1,19 @@
+graph G {
+	label="Template for QOC Diagram"
+	rankdir=LR;
+
+	Question;
+	Option1 [label="Chosen\nOption" color=green];
+	Option2 [label="Rejected\nOption" color=red];
+	Criterion1;
+	Criterion2;
+
+	{rank=min Question}
+	{rank=same Option1, Option2}
+	{rank=same Criterion1, Criterion2}
+
+	Question--{Option1, Option2};
+	Option1--Criterion1 [label="Positive Assess." color=green];
+	Option2--Criterion1 [label="Neutral Assess."]
+	Option2--Criterion2 [color=red label="Negative Assess."];
+}

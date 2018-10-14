@@ -1,0 +1,20 @@
+digraph BS3 {
+	label="BS-03 (Preordering) Service Decomposition";
+	nodesep=0.1;
+	rankdir=LR;
+	// Hybrid, Task, Entity, Utility [shape=plaintext];
+
+	Preorder;
+	OrderService;
+	AuthenticationService;
+	ViewService;
+	NotificationService;
+	ResponseService;
+	PaymentService;
+
+
+	Preorder->{AuthenticationService,NotificationService,
+	OrderService, ViewService,ResponseService}
+	edge [style=dashed dir=back arrowtail=empty]
+	Preorder->{PaymentService};
+}

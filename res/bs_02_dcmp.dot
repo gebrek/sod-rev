@@ -1,0 +1,14 @@
+digraph BS2 {
+	label="BS-02 (Statistical Analysis) Service Decomposition";
+	rankdir=LR;
+	AnalysisService;
+	AuthenticationService;
+	StatisticService;
+	ViewService;
+	StorageService;
+	ResponseService;
+
+	// edge [style=dashed dir=back arrowtail=empty]
+	AnalysisService->{AuthenticationService,StatisticService,
+			  ViewService,StorageService,ResponseService}
+}

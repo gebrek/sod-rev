@@ -1,0 +1,55 @@
+digraph BS3 {
+	label="BS-03 (Preorder) Activity Diagram";
+	newrank=true;
+	splines=polyline;
+	// Terminals
+	Start [shape=point height=0.2 width=0.2];
+	End [shape=point height=0.2 width=0.2 peripheries=2];
+	// Choices
+	node [shape=diamond fixedsize=true height=0.5 width=1.5 color=orange style=filled]
+	choose_request [label="What type of request?"];
+	choose_payment [label="Is the user paying now?"];
+
+	// Abstracted Services
+	node [shape=box color=lightgrey style=filled]
+	AuthService, ResponseService;
+	// Remaining Nodes & Clusters
+	node [shape=box color=white style=filled]
+	Start->AuthService->choose_request;
+	// choose_valid_user->StructureResponse_join [label="No"];
+	// choose_valid_user->choose_request [label="Yes"];
+	choose_request->ViewMenu [label="View\nMenu"];
+	choose_request->AddMenuItems [label="Place\nOrder"];
+	{rank=same ViewMenu, AddMenuItems}
+	subgraph cluster1 {
+		label="Order Service"
+		color=lightgrey
+		style=filled
+		AddMenuItems [label="Add Menu Items"]
+		SchedulePickup [label="Schedule Pickup"];
+		AddMenuItems->SchedulePickup;
+	}
+
+	SchedulePickup->choose_payment;
+	choose_payment->PayForOrder [label="Yes"];
+	choose_payment->StructureResponse_join [label="No"];
+
+	subgraph cluster2 {
+		label="Payment Service"
+		color=lightgrey
+		style=filled
+		PayForOrder;
+	}
+	PayForOrder->StructureResponse_join;
+	subgraph cluster3 {
+		label="View Service"
+		color=lightgrey
+		style=filled
+		ViewMenu;
+	}
+	ViewMenu->StructureResponse_join;
+	StructureResponse_join [label="" shape=diamond height=0.3 width=0.3 style=normal color=black]
+	StructureResponse_join->ResponseService;
+
+	ResponseService->End;
+}
