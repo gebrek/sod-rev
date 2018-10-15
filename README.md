@@ -1,70 +1,72 @@
 
 # Table of Contents
 
-1.  [Introduction](#org77006bd)
-    1.  [Purpose](#orgf35e128)
-    2.  [Assumptions](#org06bd283)
-    3.  [Terminology](#org40e0ad6)
-2.  [Business Domain](#org8cc55ab)
-    1.  [Usage Scenarios](#orgc7a30b6)
-        1.  [Student Case](#org8fa2d1d)
-        2.  [Cafeteria Case](#org8d209e5)
-    2.  [Participants](#org666a7ba)
-        1.  [Stakeholders](#orged6d7cc)
-        2.  [Users](#orgd986f9d)
-    3.  [Model](#org394bc90)
-    4.  [Conceptual Services](#org09b2b18)
-        -   [Preorder Service](#org4c1f613):hybrid:
-        -   [Prediction Service](#org98896ef):hybrid:
-        -   [Menu Changing Service](#org29965e1):task:
-        1.  [View Service](#org6971e07):entity:
-3.  [Functional Requirements](#org34c4c84)
-    -   [*Requirements*](#org347507a)
-        -   [\* FR-01 : *Placing Orders*](#orgc02f4c8)
-        -   [FR-02 : *Schedule Pickup*](#orgca0c859)
-        -   [FR-03 : *Electronic Payment*](#orgb66f2b1)
-        -   [\* FR-04 : *Record Transactions*](#org36f5040)
-        -   [FR-05 : *Send Transactions Records*](#orgc5ea1bf)
-        -   [FR-06 : *Send Cafeteria Orders*](#org0f4e4de)
-        -   [FR-07 : *Authorization*](#org0c331a6)
-        -   [\* FR-08 : *Trend Analysis*](#orgc817c2f)
-4.  [Quality Requirements](#org152e48c)
-    1.  [QR-01 : *Security*](#org7d78a20)
-    2.  [QR-02 : *Availability*](#org45c3b4c)
-    3.  [QR-03 : *Usability*](#org3216b1d)
-    4.  [QR-04 : *Reliability*](#orgc6788d9)
-5.  [Business Services](#org2d4c15e)
-    1.  [BS-01 : *Transaction Recording*](#org921e0d1)
-        1.  [Involved Participants](#orga8d6e96)
-        2.  [Detailed Operational Description](#orge755f7c)
-        3.  [Service Behavior](#org42dec4c)
-        4.  [Service Decomposition](#org0ed1822)
-    2.  [BS-02 : *Statistical Analysis*](#orgb51bb9c)
-        1.  [Involved Participants](#org8888b10)
-        2.  [Detailed Operational Description](#org8dbf822)
-        3.  [Service Behavior](#orgf8a56c3)
-        4.  [Service Candidates Decomposition](#orgf83e7e2)
-    3.  [BS-03 : *Preordering*](#orgb279d84)
-        1.  [Involved Participants](#org0224775)
-        2.  [Detailed Operational Description](#org758f830)
-        3.  [Service Behavior](#orgfbd820f)
-        4.  [Service Decomposition](#org9881a1b)
-6.  [Design Space](#org1f419d5)
-    -   [AK-SPAM](#orge16e09a)
-        -   [Concern](#org69bc15e)
-        -   [Criteria](#orgcd1cc9a)
-        -   [Options](#org76c4ede)
-        -   [QOC Diagram](#org4b1b738)
-7.  [Sustainability Strategies](#org1e73d65)
+1.  [Introduction](#orga7b7e7c)
+    1.  [Purpose](#orgb01b6ba)
+    2.  [Assumptions](#orgaa9e313)
+    3.  [Terminology](#orgb0da565)
+2.  [Business Domain](#org3285f9f)
+    1.  [Usage Scenarios](#org5459e08)
+        1.  [Student Case](#orgbfbbe5a)
+        2.  [Cafeteria Case](#org3fa786a)
+    2.  [Participants](#org61a347b)
+        1.  [Stakeholders](#orgdd5e761)
+        2.  [Users](#org895c2e9)
+    3.  [Model](#orgbca3104)
+    4.  [Conceptual Services](#org21e41f9)
+        -   [Preorder Service](#org44e399b):hybrid:
+        -   [Prediction Service](#orgfbaa7a0):hybrid:
+        -   [Menu Changing Service](#orge963056):task:
+        -   [View Service](#org6ce5918):entity:
+3.  [Functional Requirements](#org931c871)
+    -   [*Requirements*](#orgcd185f0)
+        -   [\* FR-01 : *Placing Orders*](#orgd815ef3)
+        -   [FR-02 : *Schedule Pickup*](#org552d7ec)
+        -   [FR-03 : *Electronic Payment*](#org813d9d8)
+        -   [\* FR-04 : *Record Transactions*](#org2020c3e)
+        -   [FR-05 : *Send Transactions Records*](#org2ed151e)
+        -   [FR-06 : *Send Cafeteria Orders*](#orgc8a9062)
+        -   [FR-07 : *Authorization*](#orge26bf21)
+        -   [\* FR-08 : *Trend Analysis*](#org5362e1b)
+4.  [Quality Requirements](#org93aa744)
+    1.  [QR-01 : *Security*](#org68c62f6)
+    2.  [QR-02 : *Availability*](#org5c889ec)
+    3.  [QR-03 : *Usability*](#org11e73f8)
+5.  [Business Services](#org8654a2a)
+    1.  [BS-01 : *Transaction Recording*](#org6238ac0)
+        1.  [Involved Participants](#org521fad0)
+        2.  [Detailed Operational Description](#orga0aa5f5)
+        3.  [Service Behavior](#org5adaa87)
+        4.  [Service Decomposition](#org3c835a7)
+    2.  [BS-02 : *Statistical Analysis*](#org312c653)
+        1.  [Involved Participants](#orgf9404c5)
+        2.  [Detailed Operational Description](#org34d4c7a)
+        3.  [Service Behavior](#org20d6b94)
+        4.  [Service Candidates Decomposition](#orgea33b3b)
+    3.  [BS-03 : *Preordering*](#org9ce0405)
+        1.  [Involved Participants](#org93c6192)
+        2.  [Detailed Operational Description](#org3e00f67)
+        3.  [Service Behavior](#org1010043)
+        4.  [Service Decomposition](#org9edf891)
+6.  [Design Space](#org1f9d85b)
+    -   [AK-SPAM 1](#org6fefd4c)
+        -   [Concern](#orge6c9537)
+        -   [Criteria](#org25b3dc1)
+        -   [Options](#org3660397)
+        -   [QOC Diagram](#org1110e47)
+7.  [Sustainability Strategies](#orgb1c564d)
+    1.  [SS-01 : Custom Pre-order Bento Boxes](#org2a01c9d)
+        1.  [Diagram](#orgd861509)
+        2.  [QOC Mapping](#orge038fd0)
 
 
 
-<a id="org77006bd"></a>
+<a id="orga7b7e7c"></a>
 
 # TODO Introduction
 
 
-<a id="orgf35e128"></a>
+<a id="orgb01b6ba"></a>
 
 ## Purpose
 
@@ -74,12 +76,12 @@ service along with historical analysis to provide accurate
 short-term demand estimates as well as insight into overall trends.
 
 
-<a id="org06bd283"></a>
+<a id="orgaa9e313"></a>
 
 ## TODO Assumptions
 
 
-<a id="org40e0ad6"></a>
+<a id="orgb0da565"></a>
 
 ## TODO Terminology
 
@@ -88,17 +90,17 @@ short-term demand estimates as well as insight into overall trends.
 ![img](res/qoc_example.png)
 
 
-<a id="org8cc55ab"></a>
+<a id="org3285f9f"></a>
 
 # DONE Business Domain
 
 
-<a id="orgc7a30b6"></a>
+<a id="org5459e08"></a>
 
 ## DONE Usage Scenarios
 
 
-<a id="org8fa2d1d"></a>
+<a id="orgbfbbe5a"></a>
 
 ### Student Case
 
@@ -120,15 +122,12 @@ clerk her name and order number. The clerk fetches her meal, and
 she goes to pay the cashier.
 
 
-<a id="org8d209e5"></a>
+<a id="org3fa786a"></a>
 
 ### Cafeteria Case
 
 At the beginning of a new day cooks in the Cafeteria begin
-preparing that day's meals. For the most part they stick to a
-routine menu with items appearing on and disappearing from the
-menu at regular intervals for various reasons. Whether because of
-shortage or to keep the menu fresh. This is the core menu.
+preparing that day's meals. This is the core menu.
 
 They also prepare some meals that have already been ordered for
 the morning. Which are placed in temporary storage, organized for
@@ -150,33 +149,35 @@ decides that they will take those items off the menu, or make less
 for the next month.
 
 
-<a id="org666a7ba"></a>
+<a id="org61a347b"></a>
 
 ## DONE Participants
 
 
-<a id="orged6d7cc"></a>
+<a id="orgdd5e761"></a>
 
 ### Stakeholders
 
 1.  **University**
 
-    The university will provide a preordering service for students
-    and a notification service for the Cafeteria, informing it of
-    students' orders.
+    The University is a service provider and will provide a
+    preordering service for students and a notification service for
+    the Cafeteria, informing it of students' orders. As a part of the
+    preorder service, the University will also consume the services
+    of a Digital Bank.
     
     Additionally the University will be recording transactions made
     through the preorder service (and those made without it) so that
     the data may later be analyzed.
 
-2.  **Digital Payment Processor**
+2.  **Digital Bank**
 
-    A Digital Payment Processing company provides exactly such a
-    service, processing pre-order payments made through an online
-    service.
+    A Digital Bank provides a digital payment service, processing
+    pre-order payments made Students that intend to pay at the time
+    of pre-ordering.
 
 
-<a id="orgd986f9d"></a>
+<a id="org895c2e9"></a>
 
 ### Users
 
@@ -187,22 +188,22 @@ for the next month.
     preorder/notification service. The Cafeteria will also report
     sales and unsold product. The Cafeteria produces the supply.
 
-2.  DONE **Students**
+2.  **Students**
 
     A Student of the University is a customer of the
     Cafeteria. Students are the entities which generate demand.
 
 
-<a id="org394bc90"></a>
+<a id="orgbca3104"></a>
 
-## DONE Model
+## Model
 
 ![img](res/business_domain.png)
 
 
-<a id="org09b2b18"></a>
+<a id="org21e41f9"></a>
 
-## TODO Conceptual Services
+## Conceptual Services
 
 This section contains a list of every service that could be related
 to the operation of the proposed system. In it are both software
@@ -211,7 +212,7 @@ the former and assume the latter will be provided by other
 entities.
 
 
-<a id="org4c1f613"></a>
+<a id="org44e399b"></a>
 
 ### Preorder Service     :hybrid:
 
@@ -269,7 +270,7 @@ of time.
         Retrieval of a Student's order at pickup.
 
 
-<a id="org98896ef"></a>
+<a id="orgfbaa7a0"></a>
 
 ### Prediction Service     :hybrid:
 
@@ -281,7 +282,7 @@ term is made.
     Owned by the University. Analyzes collected data in order to
     develop a model for future demand.
 
--   **Record Service**     :task:
+-   **Monitor Service**     :task:
 
     Owned by the University. Records orders made through the preorder
     service or collects data regarding the other sales made at the
@@ -304,7 +305,7 @@ term is made.
     University to perform analysis.
 
 
-<a id="org29965e1"></a>
+<a id="orge963056"></a>
 
 ### Menu Changing Service     :task:
 
@@ -312,18 +313,18 @@ The Cafeteria has to be able to change the menu from week to week,
 or over whatever time period the menu changes.
 
 
-<a id="org6971e07"></a>
+<a id="org6ce5918"></a>
 
 ### View Service     :entity:
 
 
-<a id="org34c4c84"></a>
+<a id="org931c871"></a>
 
-# DONE Functional Requirements
+# Functional Requirements
 
 In this section we list some of the functional requirements that our
 services, as they are described, must fulfill. They have been
-derived from the services outlined in the [Conceptual Services](#org09b2b18)
+derived from the services outlined in the [Conceptual Services](#org21e41f9)
 section. The format is:
 
 -   **ID : *Name***
@@ -342,70 +343,70 @@ Cafeteria. The other functionalities listed are necessary but
 peripheral to the core intent of this proposal.
 
 
-<a id="org347507a"></a>
+<a id="orgcd185f0"></a>
 
 ## *Requirements*
 
 
-<a id="orgc02f4c8"></a>
+<a id="orgd815ef3"></a>
 
-### \* <a id="org713cf09">FR-01</a> : *Placing Orders*
+### \* <a id="orge1e5335">FR-01</a> : *Placing Orders*
 
 A Student must be able to place an order without being physically
 present at the Cafeteria
 
 
-<a id="orgca0c859"></a>
+<a id="org552d7ec"></a>
 
-### <a id="org52721aa">FR-02</a> : *Schedule Pickup*
+### <a id="orgf857cac">FR-02</a> : *Schedule Pickup*
 
 As an order is placed, the Student should also be able to specify
 a time they wish to obtain their order.
 
 
-<a id="orgb66f2b1"></a>
+<a id="org813d9d8"></a>
 
-### <a id="org12a3f8a">FR-03</a> : *Electronic Payment*
+### <a id="orgae7c30a">FR-03</a> : *Electronic Payment*
 
 A Student should be able to optionally pay at the time of placing
 their order.
 
 
-<a id="org36f5040"></a>
+<a id="org2020c3e"></a>
 
-### \* <a id="org5151181">FR-04</a> : *Record Transactions*
+### \* <a id="org8563b89">FR-04</a> : *Record Transactions*
 
 Each transaction made must be recorded.
 
 
-<a id="orgc5ea1bf"></a>
+<a id="org2ed151e"></a>
 
-### <a id="org5d490b3">FR-05</a> : *Send Transactions Records*
+### <a id="org60ea5a8">FR-05</a> : *Send Transactions Records*
 
 If a transaction is not made through the preorder system, the
 Cafeteria must still report it to the University.
 
 
-<a id="org0f4e4de"></a>
+<a id="orgc8a9062"></a>
 
-### <a id="orga53d472">FR-06</a> : *Send Cafeteria Orders*
+### <a id="orga8e9c1a">FR-06</a> : *Send Cafeteria Orders*
 
 There must be a system in place so that the Cafeteria receives
 preorders as soon as possible.
 
 
-<a id="org0c331a6"></a>
+<a id="orge26bf21"></a>
 
-### <a id="orge2d54ec">FR-07</a> : *Authorization*
+### <a id="org69df82a">FR-07</a> : *Authorization*
 
 The system must be properly secured so that users of the system
 may register, log in, and perform whatever actions that particular
 user is permitted and no others.
 
 
-<a id="orgc817c2f"></a>
+<a id="org5362e1b"></a>
 
-### \* <a id="org21bc8f9">FR-08</a> : *Trend Analysis*
+### \* <a id="org97df018">FR-08</a> : *Trend Analysis*
 
 The system must have some way of extrapolating demand based on the
 number of preorders, correlated with historical data.
@@ -415,18 +416,18 @@ number of preorders, correlated with historical data.
 All this and more&#x2026;
 
 
-<a id="org152e48c"></a>
+<a id="org93aa744"></a>
 
-# TODO Quality Requirements
+# Quality Requirements
 
 This section will discuss the most important qualities in
 considering the problem of more accurately predicting and meeting
 demand. For clarity we will use standard<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> definitions.
 
 
-<a id="org7d78a20"></a>
+<a id="org68c62f6"></a>
 
-## DONE <a id="org7de938c">QR-01</a> : *Security*
+## <a id="org56230f0">QR-01</a> : *Security*
 
 -   **Definition:** degree to which a product or system protects
     information and data so that persons or other
@@ -441,9 +442,9 @@ diminish to nothing. Any security faults regarding the online
 payment process would be especially deleterious.
 
 
-<a id="org45c3b4c"></a>
+<a id="org5c889ec"></a>
 
-## TODO <a id="org0b4f6c3">QR-02</a> : *Availability*
+## <a id="org1b1b090">QR-02</a> : *Availability*
 
 -   **Definition:** degree to which a system, product or component is
     operational and accessible when required for use
@@ -451,15 +452,13 @@ payment process would be especially deleterious.
 The system must be reliably available to users on campus and off,
 with as little down-time as possible. The end users rely on the
 preorder service to order food ahead of time, and the University
-relies on it to develop a model for demand
+relies on it to develop a model for demand.
 
 
-<a id="org3216b1d"></a>
+<a id="org11e73f8"></a>
 
-## TODO <a id="orgc948a12">QR-03</a> : *Usability*
+## <a id="org70ebe1a">QR-03</a> : *Usability*
 
--   Note taken on <span class="timestamp-wrapper"><span class="timestamp">[2018-10-11 Thu 11:40] </span></span>   
-    Update motivation
 -   **Definition:** degree to which a product or system can be used by
     specified users to achieve specified goals with
     effectiveness, efficiency and satisfaction in a
@@ -469,41 +468,63 @@ The students will want to be able to use the services quickly and
 easily, because they only need to browse through the menu and place
 an order, regardless of the device. If the service is too complex
 to use they will not make pre-ordering a habit which contradicts
-our goal of 
+our goal of changing Student behavior to thinking ahead about what
+they should eat.
+
+Users of the system on the side of the Cafeteria should also have
+an easy time navigating it. A minimal requirement of knowledge
+should be required to use it and a minimal number of actions
+required to operate it.
 
 
-<a id="orgc6788d9"></a>
-
-## TODO <a id="orgc9bb5dd">QR-04</a> : *Reliability*
-
--   **Definition:** degree to which a system, product or component
-    performs specified functions under specified
-    conditions for a specified period of time
-
-
-<a id="org2d4c15e"></a>
+<a id="org8654a2a"></a>
 
 # Business Services
 
 
-<a id="org921e0d1"></a>
+<a id="org6238ac0"></a>
 
-## <a id="org35e29d3">BS-01</a> : *Transaction Recording*
-
-
-<a id="orga8d6e96"></a>
-
-### TODO Involved Participants
+## <a id="org31ab24f">BS-01</a> : *Transaction Recording*
 
 
-<a id="orge755f7c"></a>
+<a id="org521fad0"></a>
+
+### Involved Participants
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">University</td>
+<td class="org-left">Cafeteria</td>
+</tr>
+</tbody>
+</table>
+
+
+<a id="orga0aa5f5"></a>
 
 ### TODO Detailed Operational Description
 
+This service operates as a log for tracking the transaction
+history of the system, recording both transactions made at the
+Cafeteria and through the Preorder Service. The Transaction
+Recording Service also manages the transactions for meals ordered
+locally or pre-ordered, upon payment, and allows the staff to
+retrieve and verify the transaction log. These records will also
+be used by the "Statistical Analysis Service" to generate
+statistics.
 
-<a id="org42dec4c"></a>
 
-### DONE Service Behavior
+<a id="org5adaa87"></a>
+
+### Service Behavior
 
 In this first activity diagram we will be more explicit about each
 service involved, but we will abstract some (Authentication and
@@ -512,82 +533,148 @@ Response) away to simplify the other activity diagrams.
 ![img](res/bs_01_act.png)
 
 
-<a id="org0ed1822"></a>
+<a id="org3c835a7"></a>
 
-### DONE Service Decomposition
+### Service Decomposition
 
 ![img](res/bs_01_dcmp.png)
 
 
-<a id="orgb51bb9c"></a>
+<a id="org312c653"></a>
 
-## <a id="orgd44d32a">BS-02</a> : *Statistical Analysis*
+## <a id="orga75220d">BS-02</a> : *Statistical Analysis*
 
 
-<a id="org8888b10"></a>
+<a id="orgf9404c5"></a>
 
 ### TODO Involved Participants
 
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
-<a id="org8dbf822"></a>
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">University</td>
+</tr>
+</tbody>
+</table>
+
+
+<a id="org34d4c7a"></a>
 
 ### TODO Detailed Operational Description
 
+After successful login, the administrator can use the Statistics
+Options. They can view statistical data during some timeline or
+insert how much food waste in kg was measured for a specific time
+period by the cafeteria staff. Whatever their choice, the request
+is sent and handled by the Statistical Analysis Service.
 
-<a id="orgf8a56c3"></a>
+The Service initially asks for login credentials. If the
+credentials are valid, it identifies whether the user asks for
+statistical data or wishes to store new information. If they want
+to view an analysis, the relevant information is retrieved and
+analyzed and view data is produced, that corresponds to the graphs
+or other views that will display this analysis. On the other hand,
+the information about the weight measurement is stored.
+
+This Service does not deal with registering new administrators in
+the system. This could be handled by another service, as it
+requires information and actions irrelevant with the statistical
+analysis.
+
+
+<a id="org20d6b94"></a>
 
 ### DONE Service Behavior
 
 ![img](res/bs_02_act.png)
 
 
-<a id="orgf83e7e2"></a>
+<a id="orgea33b3b"></a>
 
 ### DONE Service Candidates Decomposition
 
 ![img](res/bs_02_dcmp.png)
 
 
-<a id="orgb279d84"></a>
+<a id="org9ce0405"></a>
 
-## <a id="orgbc14d95">BS-03</a> : *Preordering*
-
-
-<a id="org0224775"></a>
-
-### TODO Involved Participants
+## <a id="orgafbff69">BS-03</a> : *Preordering*
 
 
-<a id="org758f830"></a>
+<a id="org93c6192"></a>
+
+### DONE Involved Participants
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Students</td>
+<td class="org-left">University</td>
+<td class="org-left">Digital Bank</td>
+</tr>
+</tbody>
+</table>
+
+
+<a id="org3e00f67"></a>
 
 ### TODO Detailed Operational Description
 
+A Student may order food from the Cafeteria ahead of
+arriving. This may be done through an web or a phone app which
+serves as the Student's interface to the system. An authorized
+user logs in, and is presented with the home screen, presenting
+whatever new information about menu items or new deal that the
+administrators want.
 
-<a id="orgfbd820f"></a>
+From the home screen the user can log out, view the menu, or view
+their past orders. The user may repeat or edit an order from
+their history, or fill out a new order from the menu. After
+completing an order the user schedules a time to pick up their
+order and receives a number to give the cashier. In finalizing the
+order the Student may also choose to pay online or at the time of
+pickup.
+
+
+<a id="org1010043"></a>
 
 ### DONE Service Behavior
 
 ![img](res/bs_03_act.png)
 
 
-<a id="org9881a1b"></a>
+<a id="org9edf891"></a>
 
 ### DONE Service Decomposition
 
 ![img](res/bs_03_dcmp.png)
 
 
-<a id="org1f419d5"></a>
+<a id="org1f9d85b"></a>
 
 # Design Space
 
 
-<a id="orge16e09a"></a>
+<a id="org6fefd4c"></a>
 
-## AK-SPAM
+## AK-SPAM 1
 
 
-<a id="org69bc15e"></a>
+<a id="orge6c9537"></a>
 
 ### Concern
 
@@ -598,7 +685,7 @@ Response) away to simplify the other activity diagrams.
     reducing waste via this system?
 
 
-<a id="orgcd1cc9a"></a>
+<a id="org25b3dc1"></a>
 
 ### Criteria
 
@@ -607,7 +694,7 @@ Response) away to simplify the other activity diagrams.
 -   **Cr#3:** Usability
 
 
-<a id="org76c4ede"></a>
+<a id="org3660397"></a>
 
 ### Options
 
@@ -620,11 +707,11 @@ Response) away to simplify the other activity diagrams.
     -   **Status:** Decided
     -   **Relationship(s):** none
     -   **Evaluation:** &#x2014;
-        -   Cr#1 &#x2014; This option is secure as long as the
-            third party maintains integrity. While we have a little less
-            control over the security of the system, a third-party
-            payment processing company's business is predicated on
-            security, so we assess this positively.
+        -   Cr#1 &#x2014; This option is secure as long as the third party
+            maintains integrity. While we have a less control over the
+            security of the system, a third-party payment processing
+            company's business is predicated on security, so we assess
+            this positively.
         -   Cr#2 &#x2014; This option's availability depends again on the
             third party, it is partially out of our control, depending on
             the service model of the third party.
@@ -656,32 +743,74 @@ Response) away to simplify the other activity diagrams.
             it does not enable Students to complete payment more than
             without the system so we assess this as negative in the
             usability dimension.
-    -   **Rationale:** 
+    -   **Rationale:** No significant functionality is added, nor are the
+        qualities we listed improved by Payment on Pickup,
+        so we reject this option
 
 -   In-house Payment System
 
     -   **ID:** Con#1-Opt#3
-    -   **Description:** 
-    
-    -   **Status:** 
-    
-    -   **Relationship(s):** 
-    
-    -   **Evaluation:** 
-    
-    -   **Rationale:** 
+    -   **Description:** Online payment is done via a system we've
+        implemented
+    -   **Status:** Rejected
+    -   **Relationship(s):** none
+    -   **Evaluation:** &#x2014;
+        -   Cr#1 &#x2014; This option has implications for
+            security. Implementing a payment handling
+            system creates a dangerous potential attack
+            vector and lost trust is hard to regain.
+        -   Cr#2 &#x2014; This option could be more or less reliable than
+            Con#1-Opt#1 depending on the quality and architecture of the
+            implementation.
+        -   Cr#3 &#x2014; This option could be integrated into our solutions
+            even more than Con#1-Opt#1 because of its in-house nature and
+            provide a better user experience.
+    -   **Rationale:** The option is strongly depends on the quality of
+        the developed in-house system and its superiority
+        in terms of cost and effectiveness.
 
 
-<a id="org4b1b738"></a>
+<a id="org1110e47"></a>
 
 ### QOC Diagram
 
 ![img](res/qoc_01.png)
 
 
-<a id="org1e73d65"></a>
+<a id="orgb1c564d"></a>
 
-# Sustainability Strategies
+# TODO Sustainability Strategies
+
+
+<a id="org2a01c9d"></a>
+
+## TODO <a id="orgee40d84">SS-01</a> : Custom Pre-order Bento Boxes
+
+-   **Description:** Customizable lunch boxes which Students order
+    ahead will give insight on customer buying
+    patterns, and encourage them to take more
+    appropriate serving sizes, and enable the return
+    of uneaten food stuff.
+-   **Type of Strategy:** People Awareness
+-   **Relevance for Business Domain:** Offering stakeholders insight on
+    customer buying patterns and minimizing food wastage is the
+    primary aim of this system. The use of pre-packed bento boxes
+    and provision for pre-orders and refunds directly helps in
+    achieving this objective by spreading awareness of food
+    wastage and offering incentives to follow sustainable
+    practices.
+
+
+<a id="orgd861509"></a>
+
+### TODO Diagram
+
+![img](res/ss_01.png)
+
+
+<a id="orge038fd0"></a>
+
+### TODO QOC Mapping
 
 
 # Footnotes
