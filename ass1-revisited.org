@@ -146,6 +146,7 @@
 	     Student->University	[label="Preorders"];
 	     DigitalBank->Student	[label="Charges"];
 	     Cafeteria->University 	[label="Reports"];
+	     University->DigitalBank    [label="Payment\nService"]
 
 	     // Proxy actions
 	     node [fontsize=14 shape=plaintext height=0 margin=0]
