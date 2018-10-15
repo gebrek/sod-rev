@@ -102,9 +102,9 @@
 
 **** *Digital Bank*
 
-     A Digital Payment Processing company provides exactly such a
-     service, processing pre-order payments made through an online
-     service.
+     A Digital Bank provides a digital payment service, processing
+     pre-order payments made Students that intend to pay at the time
+     of pre-ordering.
 
 *** Users
 **** *Cafeteria*
@@ -114,7 +114,7 @@
      preorder/notification service. The Cafeteria will also report
      sales and unsold product. The Cafeteria produces the supply.
 
-**** DONE *Students*
+**** *Students*
 
      A Student of the University is a customer of the
      Cafeteria. Students are the entities which generate demand.
