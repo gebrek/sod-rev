@@ -241,7 +241,7 @@
      Owned by the University. Analyzes collected data in order to
      develop a model for future demand.
 
-**** *Record Service*                                                  :task:
+**** *Monitor Service*                                                 :task:
 
      Owned by the University. Records orders made through the preorder
      service or collects data regarding the other sales made at the
