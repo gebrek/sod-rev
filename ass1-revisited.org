@@ -92,9 +92,11 @@
 *** Stakeholders
 **** *University*
 
-     The university will provide a preordering service for students
-     and a notification service for the Cafeteria, informing it of
-     students' orders.
+     The University is a service provider and will provide a
+     preordering service for students and a notification service for
+     the Cafeteria, informing it of students' orders. As a part of the
+     preorder service, the University will also consume the services
+     of a Digital Bank.
 
      Additionally the University will be recording transactions made
      through the preorder service (and those made without it) so that
@@ -118,7 +120,7 @@
 
      A Student of the University is a customer of the
      Cafeteria. Students are the entities which generate demand.
-** DONE Model
+** Model
    #+BEGIN_SRC dot :file res/business_domain.png :tangle res/business_domain.dot
      digraph BznsDmn {
 	     label="Business Domain Model"
@@ -170,7 +172,7 @@
    #+RESULTS:
    [[file:res/business_domain.png]]
 
-** TODO Conceptual Services
+** Conceptual Services
    This section contains a list of every service that could be related
    to the operation of the proposed system. In it are both software
    and non-software services, we will describe the details of some of
@@ -273,7 +275,7 @@
     :PROPERTIES:
     :UNNUMBERED: t
     :END:
-* DONE Functional Requirements
+* Functional Requirements
 
   In this section we list some of the functional requirements that our
   services, as they are described, must fulfill. They have been
@@ -329,13 +331,13 @@
 
     All this and more...
 #+latex: \newpage
-* TODO Quality Requirements
+* Quality Requirements
 
   This section will discuss the most important qualities in
   considering the problem of more accurately predicting and meeting
   demand. For clarity we will use standard[fn:1] definitions.
 
-** DONE <<<QR-01>>> : /Security/
+** <<<QR-01>>> : /Security/
    + Definition :: degree to which a product or system protects
                    information and data so that persons or other
                    products or systems have the degree of data access
@@ -348,7 +350,7 @@
    information, or is otherwise compromised, trust in the system will
    diminish to nothing. Any security faults regarding the online
    payment process would be especially deleterious.
-** TODO <<<QR-02>>> : /Availability/
+** <<<QR-02>>> : /Availability/
    + Definition :: degree to which a system, product or component is
                    operational and accessible when required for use
 
@@ -356,9 +358,9 @@
    The system must be reliably available to users on campus and off,
    with as little down-time as possible. The end users rely on the
    preorder service to order food ahead of time, and the University
-   relies on it to develop a model for demand
+   relies on it to develop a model for demand.
 
-** TODO <<<QR-03>>> : /Usability/
+** <<<QR-03>>> : /Usability/
    + Definition :: degree to which a product or system can be used by
                    specified users to achieve specified goals with
                    effectiveness, efficiency and satisfaction in a
@@ -369,26 +371,31 @@
    easily, because they only need to browse through the menu and place
    an order, regardless of the device. If the service is too complex
    to use they will not make pre-ordering a habit which contradicts
-   our goal of 
-#+latex: \newpage
+   our goal of changing Student behavior to thinking ahead about what
+   they should eat.
+
+   Users of the system on the side of the Cafeteria should also have
+   an easy time navigating it. A minimal requirement of knowledge
+   should be required to use it and a minimal number of actions
+   required to operate it.
 ** COMMENT TODO <<<QR-04>>> : /Reliability/
    + Definition :: degree to which a system, product or component
                    performs specified functions under specified
                    conditions for a specified period of time
 * Business Services
 ** <<<BS-01>>> : /Transaction Recording/
-*** DONE Involved Participants
+*** Involved Participants
     | University | Cafeteria |
 *** TODO Detailed Operational Description
-    This service operates as a sort of a log for tracking the
-    transaction history of the system, with updates being made to the
-    database on each transaction that is processed at the
-    register. The Transaction Recording Service also manages the
-    transactions for meals ordered locally or pre-ordered, upon
-    payment, and allows the staff to retrieve and verify the
-    transaction log. These records will also be used by the
-    "Statistical Analysis Service" to generate statistics.
-*** DONE Service Behavior
+    This service operates as a log for tracking the transaction
+    history of the system, recording both transactions made at the
+    Cafeteria and through the Preorder Service. The Transaction
+    Recording Service also manages the transactions for meals ordered
+    locally or pre-ordered, upon payment, and allows the staff to
+    retrieve and verify the transaction log. These records will also
+    be used by the "Statistical Analysis Service" to generate
+    statistics.
+*** Service Behavior
     In this first activity diagram we will be more explicit about each
     service involved, but we will abstract some (Authentication and
     Response) away to simplify the other activity diagrams.
@@ -473,7 +480,7 @@
 
     #+RESULTS:
     [[file:res/bs_01_act.png]]
-*** DONE Service Decomposition
+*** Service Decomposition
     #+BEGIN_SRC dot :file res/bs_01_dcmp.png :tangle res/bs_01_dcmp.dot
       digraph BS1 {
 	      label="BS-01 (Transaction Recording) Service Decomposition";
@@ -706,7 +713,7 @@
 
 #+latex: \newpage
 * Design Space
-** AK-SPAM
+** AK-SPAM 1
    :PROPERTIES:
    :UNNUMBERED: t
    :END:
@@ -815,13 +822,37 @@
     [[file:res/qoc_01.png]]
 
 * TODO Sustainability Strategies
-** TODO
-*** TODO <<<SS-01>>> : <short-name>
-    + Description ::
-    + Type of Strategy ::
-    + Relevance for Business Domain :: 
-**** TODO Diagram
-**** TODO QOC Mapping
+** TODO <<<SS-01>>> : Custom Pre-order Bento Boxes
+   + Description :: Customizable lunch boxes which Students order
+                    ahead will give insight on customer buying
+                    patterns, and encourage them to take more
+                    appropriate serving sizes, and enable the return
+                    of uneaten food stuff.
+   + Type of Strategy :: People Awareness
+   + Relevance for Business Domain :: Offering stakeholders insight on
+        customer buying patterns and minimizing food wastage is the
+        primary aim of this system. The use of pre-packed bento boxes
+        and provision for pre-orders and refunds directly helps in
+        achieving this objective by spreading awareness of food
+        wastage and offering incentives to follow sustainable
+        practices.
+*** TODO Diagram
+    #+BEGIN_SRC dot :file res/ss_01.png :tangle res/ss_01.dot
+      digraph G {
+              rankdir=LR;
+	      // splines=line;
+	      Action1 [label="Statistical\nAnalysis"];
+	      Action2 [label="Pre-ordering"];
+	      Goal [label="Minimize Food Waste"];
+	      Action1->Goal [label="Predict\nDemand"];
+	      Action2->Goal [label="Communicate\nReal Demand"]
+      }
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:res/ss_01.png]]
+
+*** TODO QOC Mapping
 * Footnotes
 
 [fn:1] ISO/IEC 25010:2011
