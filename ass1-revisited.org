@@ -402,7 +402,7 @@
 
     #+BEGIN_SRC dot :file res/bs_01_act.png :tangle res/bs_01_act.dot
       digraph BS1 {
-	      label="BS-01 (Statistical Analysis) Activity Diagram";
+	      label="BS-01 (Transaction Recording) Activity Diagram";
 	      newrank=true;
 	      splines=polyline;
 	      // Terminals
