@@ -359,8 +359,6 @@
    relies on it to develop a model for demand
 
 ** TODO <<<QR-03>>> : /Usability/
-   - Note taken on [2018-10-11 Thu 11:40] \\
-     Update motivation
    + Definition :: degree to which a product or system can be used by
                    specified users to achieve specified goals with
                    effectiveness, efficiency and satisfaction in a
@@ -373,14 +371,23 @@
    to use they will not make pre-ordering a habit which contradicts
    our goal of 
 #+latex: \newpage
-** TODO <<<QR-04>>> : /Reliability/
+** COMMENT TODO <<<QR-04>>> : /Reliability/
    + Definition :: degree to which a system, product or component
                    performs specified functions under specified
                    conditions for a specified period of time
 * Business Services
 ** <<<BS-01>>> : /Transaction Recording/
-*** TODO Involved Participants
+*** DONE Involved Participants
+    | University | Cafeteria |
 *** TODO Detailed Operational Description
+    This service operates as a sort of a log for tracking the
+    transaction history of the system, with updates being made to the
+    database on each transaction that is processed at the
+    register. The Transaction Recording Service also manages the
+    transactions for meals ordered locally or pre-ordered, upon
+    payment, and allows the staff to retrieve and verify the
+    transaction log. These records will also be used by the
+    "Statistical Analysis Service" to generate statistics.
 *** DONE Service Behavior
     In this first activity diagram we will be more explicit about each
     service involved, but we will abstract some (Authentication and
@@ -490,7 +497,26 @@
 
 ** <<<BS-02>>> : /Statistical Analysis/
 *** TODO Involved Participants
+    | University |
 *** TODO Detailed Operational Description
+    After successful login, the administrator can use the Statistics
+    Options. They can view statistical data during some timeline or
+    insert how much food waste in kg was measured for a specific time
+    period by the cafeteria staff. Whatever their choice, the request
+    is sent and handled by the Statistical Analysis Service.
+
+    The Service initially asks for login credentials. If the
+    credentials are valid, it identifies whether the user asks for
+    statistical data or wishes to store new information. If they want
+    to view an analysis, the relevant information is retrieved and
+    analyzed and view data is produced, that corresponds to the graphs
+    or other views that will display this analysis. On the other hand,
+    the information about the weight measurement is stored.
+
+    This Service does not deal with registering new administrators in
+    the system. This could be handled by another service, as it
+    requires information and actions irrelevant with the statistical
+    analysis.
 *** DONE Service Behavior
     #+BEGIN_SRC dot :file res/bs_02_act.png :tangle res/bs_02_act.dot
       digraph BS2 {
@@ -572,8 +598,23 @@
     [[file:res/bs_02_dcmp.png]]
 #+latex: \newpage
 ** <<<BS-03>>> : /Preordering/
-*** TODO Involved Participants
+*** DONE Involved Participants
+    | Students | University | Digital Bank |
 *** TODO Detailed Operational Description
+    A Student may order food from the Cafeteria ahead of
+    arriving. This may be done through an web or a phone app which
+    serves as the Student's interface to the system. An authorized
+    user logs in, and is presented with the home screen, presenting
+    whatever new information about menu items or new deal that the
+    administrators want.
+
+    From the home screen the user can log out, view the menu, or view
+    their past orders. The user may repeat or edit an order from
+    their history, or fill out a new order from the menu. After
+    completing an order the user schedules a time to pick up their
+    order and receives a number to give the cashier. In finalizing the
+    order the Student may also choose to pay online or at the time of
+    pickup.
 *** DONE Service Behavior
     #+BEGIN_SRC dot :file res/bs_03_act.png :tangle res/bs_03_act.dot
       digraph BS3 {
@@ -688,11 +729,11 @@
      + Status :: Decided
      + Relationship(s) :: none
      + Evaluation :: ---
-       + Cr#1 --- This option is secure as long as the
-         third party maintains integrity. While we have a little less
-         control over the security of the system, a third-party
-         payment processing company's business is predicated on
-         security, so we assess this positively.
+       + Cr#1 --- This option is secure as long as the third party
+         maintains integrity. While we have a less control over the
+         security of the system, a third-party payment processing
+         company's business is predicated on security, so we assess
+         this positively.
        + Cr#2 --- This option's availability depends again on the
          third party, it is partially out of our control, depending on
          the service model of the third party.
@@ -722,14 +763,29 @@
          it does not enable Students to complete payment more than
          without the system so we assess this as negative in the
          usability dimension.
-     + Rationale :: 
+     + Rationale :: No significant functionality is added, nor are the
+                    qualities we listed improved by Payment on Pickup,
+                    so we reject this option
 **** In-house Payment System
      + ID :: Con#1-Opt#3
-     + Description ::
-     + Status ::
-     + Relationship(s) ::
-     + Evaluation ::
-     + Rationale :: 
+     + Description :: Online payment is done via a system we've
+                      implemented
+     + Status :: Rejected
+     + Relationship(s) :: none
+     + Evaluation :: ---
+       + Cr#1 --- This option has implications for
+         security. Implementing a payment handling
+         system creates a dangerous potential attack
+         vector and lost trust is hard to regain.
+       + Cr#2 --- This option could be more or less reliable than
+         Con#1-Opt#1 depending on the quality and architecture of the
+         implementation.
+       + Cr#3 --- This option could be integrated into our solutions
+         even more than Con#1-Opt#1 because of its in-house nature and
+         provide a better user experience.
+     + Rationale :: The option is strongly depends on the quality of
+                    the developed in-house system and its superiority
+                    in terms of cost and effectiveness.
 *** QOC Diagram
     #+BEGIN_SRC dot :file res/qoc_01.png :tangle res/qoc_01.dot
     graph G {
@@ -758,8 +814,14 @@
     #+RESULTS:
     [[file:res/qoc_01.png]]
 
-* Sustainability Strategies
-
+* TODO Sustainability Strategies
+** TODO
+*** TODO <<<SS-01>>> : <short-name>
+    + Description ::
+    + Type of Strategy ::
+    + Relevance for Business Domain :: 
+**** TODO Diagram
+**** TODO QOC Mapping
 * Footnotes
 
 [fn:1] ISO/IEC 25010:2011
